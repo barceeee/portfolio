@@ -158,3 +158,19 @@ site is served on. When you have a domain:
 - **Opening animation** (red "RANDY" logo reveal): `assets/css/intro.css` + `assets/js/intro.js`.
   It plays once per browser session, can be skipped with a click or any key, and never plays
   with "Reduce motion" turned on. Add `?nointro` to the URL to skip it while editing.
+
+## GitHub language bars
+
+`data/github-languages.json` holds the language breakdown of every public repository on
+github.com/barceeee (the same numbers GitHub shows on each repo page). Refresh it with:
+
+```bash
+npm run languages
+```
+
+- Private repositories can't be read without a login. They're listed by hand under `"manual"`
+  (STI-360 is counted from its local checkout); the refresh keeps that section.
+- GitHub sometimes labels PHP files as "Hack"; the refresh counts those as PHP.
+- A project shows its own bar when its entry has `"repo": "<repository name>"`.
+- The Languages & Tools section shows the overall mix by amount of code, plus how many
+  repositories use each language (so small PHP/C# projects still count).

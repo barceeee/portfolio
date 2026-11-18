@@ -106,3 +106,46 @@ export function pauseHeroWhenOffscreen() {
   if (!hero || !("IntersectionObserver" in window)) return;
   new IntersectionObserver(([e]) => hero.classList.toggle("is-offscreen", !e.isIntersecting)).observe(hero);
 }
+
+/* ---------- GitHub language bars (data/github-languages.json, refreshed with `npm run languages`) ---------- */
+const LANG_COLORS = {
+  JavaScript: "#f1e05a", TypeScript: "#3178c6", HTML: "#e34c26", CSS: "#663399", PHP: "#4F5D95",
+  "C#": "#178600", PLpgSQL: "#336790", TSQL: "#e38c00", Python: "#3572A5", Java: "#b07219", Hack: "#878787",
+};
+const LANG_LABELS = { PLpgSQL: "PL/pgSQL", TSQL: "T-SQL" };
+
+export async function loadLanguages() {
+  try {
+    const res = await fetch("/data/github-languages.json", { cache: "no-cache" });
+    return res.ok ? res.json() : null;
+  } catch { return null; }
+}
+
+/** Byte counts for one repo (public or manual), or summed across all of them when repo is omitted. */
+export function repoLanguages(gh, repo) {
+  if (!gh) return null;
+  const all = { ...(gh.repos || {}), ...(gh.manual || {}) };
+  if (repo) return all[repo] || null;
+  const sum = {};
+  for (const langs of Object.values(all)) for (const [l, b] of Object.entries(langs)) sum[l] = (sum[l] || 0) + b;
+  return Object.keys(sum).length ? sum : null;
+}
+
+/** GitHub-style stacked bar + legend. Languages under 1% are grouped as "Other". */
+export function languageBar(langs, { caption } = {}) {
+  if (!langs) return null;
+  const total = Object.values(langs).reduce((a, b) => a + b, 0);
+  if (!total) return null;
+  let rows = Object.entries(langs).map(([l, b]) => [l, (b / total) * 100]).sort((a, b) => b[1] - a[1]);
+  const small = rows.filter(([, p]) => p < 1);
+  rows = rows.filter(([, p]) => p >= 1);
+  if (small.length) rows.push(["Other", small.reduce((a, [, p]) => a + p, 0)]);
+  const color = (l) => LANG_COLORS[l] || "#8b8b95";
+  const name = (l) => LANG_LABELS[l] || l;
+  return h("div", { class: "langbar" },
+    caption ? h("p", { class: "langbar__caption" }, caption) : null,
+    h("div", { class: "langbar__track", role: "img", "aria-label": rows.map(([l, p]) => `${name(l)} ${p.toFixed(1)}%`).join(", ") },
+      rows.map(([l, p]) => h("span", { style: `width:${p}%;background:${color(l)}`, title: `${name(l)} ${p.toFixed(1)}%` }))),
+    h("ul", { class: "langbar__legend" }, rows.map(([l, p]) =>
+      h("li", {}, h("i", { style: `background:${color(l)}`, "aria-hidden": "true" }), h("b", {}, name(l)), ` ${p.toFixed(1)}%`))));
+}

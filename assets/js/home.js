@@ -1,4 +1,6 @@
-import { h, has, isDev, safeUrl, loadSite, caseStudyUrl, initials, initNav, renderBrand, renderFooter, setCanonical, devNote, reducedMotion, pauseHeroWhenOffscreen } from "./common.js";
+import { h, has, isDev, safeUrl, loadSite, caseStudyUrl, initials, initNav, renderBrand, renderFooter, setCanonical, devNote, reducedMotion, pauseHeroWhenOffscreen, loadLanguages, repoLanguages, languageBar } from "./common.js";
+
+let GH = null; // GitHub language data
 
 const main = document.getElementById("main");
 const dialog = document.getElementById("details");
@@ -18,6 +20,7 @@ async function init() {
 
   const all = categories.flatMap((c) => c.items);
   const featured = all.find((i) => i.featured) || all[0];
+  GH = await loadLanguages();
   const skills = await fetch("/data/skills.json", { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
 
   renderNavLinks(categories);
@@ -249,6 +252,24 @@ function clustered(categories) {
   return out;
 }
 
+/* Overall language mix across every GitHub repository (+ private ones listed by hand). */
+function githubSummary() {
+  if (!GH) return null;
+  const n = Object.keys(GH.repos || {}).length + Object.keys(GH.manual || {}).length;
+  const caption = h("span", {}, `Code across my ${n} GitHub repositories`, GH.updated ? ` · updated ${GH.updated} · ` : " · ",
+    h("a", { href: `https://github.com/${GH.user || ""}`, target: "_blank", rel: "noopener" }, "github.com/" + (GH.user || "") + " ↗"));
+  const bar = languageBar(repoLanguages(GH), { caption });
+  if (!bar) return null;
+  // Bytes favour big repos, so also show how many repositories use each language.
+  const count = {};
+  for (const langs of [...Object.values(GH.repos || {}), ...Object.values(GH.manual || {})])
+    for (const l of Object.keys(langs)) count[l] = (count[l] || 0) + 1;
+  const names = { PLpgSQL: "PL/pgSQL", TSQL: "T-SQL" };
+  bar.append(h("p", { class: "langbar__counts" }, h("span", {}, "Repositories using each: "),
+    Object.entries(count).sort((a, b) => b[1] - a[1]).flatMap(([l, n], i) => [i ? " · " : "", h("b", {}, names[l] || l), ` ${n}`])));
+  return bar;
+}
+
 /* ---------- Rows ---------- */
 function renderRow(cat) {
   if (!cat.items.length && !isDev) return null;
@@ -261,6 +282,7 @@ function renderRow(cat) {
     .map(([g, items]) => renderTrackRow(cat, items, { id: `row-${cat.id}-${g.toLowerCase()}`, title: g, level: "h3" }));
   return h("section", { class: "row-group", id: `row-${cat.id}`, "aria-labelledby": `row-${cat.id}-heading` },
     h("h2", { class: "row-group__title", id: `row-${cat.id}-heading` }, cat.title),
+    cat.id === "languages" ? githubSummary() : null,
     h("div", { class: "row-group__rows" }, rows));
 }
 
@@ -349,6 +371,7 @@ function openDetails(item, opener) {
         h("dt", {}, d.label),
         h("dd", {}, Array.isArray(item[d.key]) ? h("ul", { class: "chips" }, item[d.key].map((v) => h("li", {}, v))) : item[d.key]),
       ])) : null,
+      item.repo ? languageBar(repoLanguages(GH, item.repo), { caption: "Languages in the repository (as GitHub counts them)" }) : null,
       h("div", { class: "dialog__actions" },
         url ? h("a", { class: "btn btn--primary btn--small", href: url }, "View case study") : null,
         link ? h("a", { class: "btn btn--ghost btn--small", href: link, target: "_blank", rel: "noopener" }, `${item.link.label || "Open link"} ↗`) : null)));

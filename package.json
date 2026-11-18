@@ -5,6 +5,7 @@
   "description": "Netflix-style animated portfolio of credentials. Static site: plain HTML, CSS and JavaScript, no build step.",
   "scripts": {
     "dev": "npx --yes serve@14.2.4 . -l 3000",
-    "check": "node scripts/check-data.mjs"
+    "check": "node scripts/check-data.mjs",
+    "languages": "node scripts/fetch-github-languages.mjs"
   }
 }

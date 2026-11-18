@@ -71,6 +71,7 @@
       "demoUrl": "/demos/pagpag"
     },
     "image": "/assets/img/cover-pagpag.png",
-    "role": "Lead Developer"
+    "role": "Lead Developer",
+    "repo": "PagpagTheHungerGames"
   }
 ]

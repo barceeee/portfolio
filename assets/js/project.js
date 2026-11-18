@@ -1,4 +1,4 @@
-import { h, has, safeUrl, loadSite, initNav, renderBrand, renderFooter, setCanonical, devNote, reducedMotion, pauseHeroWhenOffscreen } from "./common.js";
+import { h, has, safeUrl, loadSite, initNav, renderBrand, renderFooter, setCanonical, devNote, reducedMotion, pauseHeroWhenOffscreen, loadLanguages, repoLanguages, languageBar } from "./common.js";
 
 const main = document.getElementById("main");
 
@@ -20,6 +20,7 @@ async function init() {
   renderFooter(profile);
   setCanonical(profile);
 
+  const gh = await loadLanguages();
   const slug = currentSlug();
   const item = categories.filter((c) => c.caseStudies).flatMap((c) => c.items).find((i) => i.slug === slug);
   if (!item) {
@@ -32,10 +33,10 @@ async function init() {
   }
   document.title = `${item.shortTitle || item.title}${profile.name ? ` — ${profile.name}` : ""}`;
   document.querySelector('meta[name="description"]')?.setAttribute("content", item.description || item.title);
-  render(item);
+  render(item, gh);
 }
 
-function render(item) {
+function render(item, gh) {
   const cs = item.caseStudy || {};
   const live = safeUrl(cs.liveUrl), repo = safeUrl(cs.repoUrl), demo = safeUrl(cs.demoUrl);
   const meta = [item._cat.title, item.role, item.client, item.date].filter(has).join(" · ");
@@ -68,6 +69,7 @@ function render(item) {
     demo && demoBlock(item, demo, cover),
     has(cs.problem) && block("The problem", h("p", {}, cs.problem)),
     has(item.techStack) && block("Tech stack", h("ul", { class: "chips" }, item.techStack.map((t) => h("li", {}, t)))),
+    item.repo && repoLanguages(gh, item.repo) && block("Languages", languageBar(repoLanguages(gh, item.repo), { caption: "Share of code in the repository, as GitHub counts it" })),
     has(cs.features) && block("Key features", h("ul", { class: "features" }, cs.features.map((f, i) =>
       h("li", { class: "reveal", style: `--delay:${i * 80}ms` }, h("h3", {}, f.title), has(f.description) ? h("p", {}, f.description) : null)))),
     has(cs.outcomes) && block("Outcomes", h("ul", { class: "outcomes" }, cs.outcomes.map((o) => h("li", {}, o)))),

@@ -515,3 +515,21 @@ main { padding-bottom: 48px; }
 /* let the link strip shrink to the screen so it can side-scroll (it used to overflow off-screen) */
 .nav > nav { flex: 1 1 auto; min-width: 0; }
 .nav__links { max-width: 100%; }
+
+/* ---------- GitHub language bars ---------- */
+.langbar { margin: 0 0 18px; }
+.langbar__caption { margin: 0 0 8px !important; font-size: 13px; color: var(--muted); }
+.langbar__caption a { color: var(--text); }
+.langbar__track { display: flex; height: 10px; border-radius: 999px; overflow: hidden; background: var(--surface-2); gap: 2px; }
+.langbar__track span { display: block; height: 100%; min-width: 3px; }
+.langbar__legend { display: flex; flex-wrap: wrap; gap: 6px 16px; list-style: none; margin: 10px 0 0; padding: 0; font-size: 13px; color: var(--muted); }
+.langbar__legend li { display: inline-flex; align-items: center; gap: 6px; }
+.langbar__legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.langbar__legend b { color: var(--text); font-weight: 600; }
+.row-group .langbar { padding: 0 var(--gutter); margin: 4px 0 14px; max-width: 980px; }
+.langbar__counts { margin: 8px 0 0 !important; font-size: 13px; color: var(--muted); line-height: 1.6; }
+.langbar__counts b { color: var(--text); font-weight: 600; }
+
+/* Top 10: lock BOTH axes. With only overflow-x hidden, the browser made the vertical axis
+   scrollable, so the wheel nudged the strip by the few pixels the hover zoom pokes out. */
+.row .top10__track { overflow: hidden; overscroll-behavior: contain; padding-top: 26px; padding-bottom: 26px; }

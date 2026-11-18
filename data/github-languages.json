@@ -1,0 +1,86 @@
+{
+  "user": "barceeee",
+  "updated": "2026-11-18",
+  "repos": {
+    "atmsys": {
+      "PHP": 4963,
+      "CSS": 1389,
+      "JavaScript": 580
+    },
+    "CRUDPROJECT": {
+      "PHP": 6915,
+      "JavaScript": 3492
+    },
+    "event-driven_Day2": {
+      "C#": 4092
+    },
+    "form": {
+      "PHP": 3568,
+      "CSS": 1389,
+      "JavaScript": 581
+    },
+    "happy1yr": {
+      "HTML": 21152,
+      "CSS": 13155,
+      "JavaScript": 3710
+    },
+    "informationsystem": {
+      "PHP": 2350,
+      "JavaScript": 220
+    },
+    "PagpagTheHungerGames": {
+      "C#": 557434
+    },
+    "portfolio": {
+      "CSS": 30422,
+      "JavaScript": 29342,
+      "HTML": 4362
+    },
+    "radiomalupet": {
+      "JavaScript": 3398,
+      "CSS": 2460,
+      "HTML": 1445
+    },
+    "recipe": {
+      "HTML": 7123
+    },
+    "rfid_attendancesystem": {
+      "C#": 5000,
+      "TSQL": 566
+    },
+    "sassystrands": {
+      "JavaScript": 291729,
+      "PLpgSQL": 135657,
+      "CSS": 38096,
+      "TypeScript": 7905,
+      "HTML": 886
+    },
+    "speech": {
+      "JavaScript": 1560,
+      "HTML": 1431
+    },
+    "stickynotes": {
+      "HTML": 9826,
+      "CSS": 4942
+    },
+    "webstech": {
+      "HTML": 13728,
+      "PHP": 6597,
+      "JavaScript": 1851,
+      "CSS": 442
+    },
+    "webtech": {
+      "PHP": 9090,
+      "JavaScript": 3500
+    }
+  },
+  "manual": {
+    "sti-360": {
+      "JavaScript": 2206586,
+      "PLpgSQL": 841887,
+      "TypeScript": 92039,
+      "CSS": 48240,
+      "HTML": 19374
+    }
+  }
+}
