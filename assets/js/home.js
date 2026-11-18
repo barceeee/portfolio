@@ -31,6 +31,65 @@ async function init() {
   );
   observeEntrances();
   pauseHeroWhenOffscreen();
+  initScrollSpy();
+}
+
+/* ---------- Nav scroll-spy: highlight the section you're reading, with a sliding bar ---------- */
+function initScrollSpy() {
+  const ul = document.querySelector(".nav__links");
+  const links = [...ul.querySelectorAll('a[href^="#"]')];
+  const sections = links.map((a) => document.getElementById(a.getAttribute("href").slice(1))).filter(Boolean);
+  if (!sections.length) return;
+
+  const bar = h("span", { class: "nav__indicator", "aria-hidden": "true" });
+  ul.append(bar);
+  let current = "";
+  const activeLinks = () => links.filter((a) => a.getAttribute("aria-current"));
+
+  // The bar spans every active link (side-by-side sections are active together).
+  function moveBar(active) {
+    if (!active.length) { bar.style.opacity = "0"; return; }
+    const left = Math.min(...active.map((a) => a.offsetLeft));
+    const right = Math.max(...active.map((a) => a.offsetLeft + a.offsetWidth));
+    // transform only (no width/left animation): scaleX from a 100px-wide bar
+    bar.style.transform = `translateX(${left}px) scaleX(${(right - left) / 100})`;
+    bar.style.opacity = "1";
+  }
+  function setActive(ids) {
+    const key = ids.join(",");
+    if (key === current) return;
+    current = key;
+    for (const a of links) {
+      if (ids.includes(a.getAttribute("href").slice(1))) a.setAttribute("aria-current", "true");
+      else a.removeAttribute("aria-current");
+    }
+    const active = activeLinks();
+    moveBar(active);
+    // keep the active link(s) visible in the side-scrolling nav on small screens
+    if (active.length && ul.scrollWidth > ul.clientWidth) {
+      const target = active[0].offsetLeft - 24;
+      ul.scrollTo({ left: Math.max(0, target), behavior: reducedMotion() ? "auto" : "smooth" });
+    }
+  }
+
+  // Current section = the last one whose top has passed a line a third of the way down the screen
+  // (at the very bottom of the page, the last section). Checked at most once per frame while scrolling.
+  function update() {
+    const line = innerHeight * 0.35;
+    const tops = sections.map((s) => s.getBoundingClientRect().top);
+    let i = -1;
+    tops.forEach((t, k) => { if (t <= line) i = k; });
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) i = sections.length - 1;
+    if (i < 0) return setActive([]);
+    // sections level with it are side by side (one row on wide screens): highlight them together
+    setActive(sections.filter((s, k) => Math.abs(tops[k] - tops[i]) < 8).map((s) => s.id));
+  }
+  let queued = false;
+  addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; update(); }); } }, { passive: true });
+  update();
+
+  addEventListener("resize", () => { moveBar(activeLinks()); update(); }, { passive: true });
+  if (document.fonts) document.fonts.ready.then(() => moveBar(activeLinks()));
 }
 
 /* ---------- Stats strip (computed from the data, nothing hard-coded) ---------- */
