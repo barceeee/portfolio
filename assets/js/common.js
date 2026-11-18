@@ -99,3 +99,10 @@ export function setCanonical(profile) {
 export function devNote(text) {
   return isDev ? h("p", { class: "dev-note", role: "note" }, "Author note (localhost only): ", text) : null;
 }
+
+/** Pause the hero's endless background motion while it's scrolled out of view (saves GPU work). */
+export function pauseHeroWhenOffscreen() {
+  const hero = document.querySelector(".hero, .study-hero");
+  if (!hero || !("IntersectionObserver" in window)) return;
+  new IntersectionObserver(([e]) => hero.classList.toggle("is-offscreen", !e.isIntersecting)).observe(hero);
+}

@@ -1,4 +1,4 @@
-import { h, has, isDev, safeUrl, loadSite, caseStudyUrl, initials, initNav, renderBrand, renderFooter, setCanonical, devNote, reducedMotion } from "./common.js";
+import { h, has, isDev, safeUrl, loadSite, caseStudyUrl, initials, initNav, renderBrand, renderFooter, setCanonical, devNote, reducedMotion, pauseHeroWhenOffscreen } from "./common.js";
 
 const main = document.getElementById("main");
 const dialog = document.getElementById("details");
@@ -30,6 +30,7 @@ async function init() {
     renderCaseStudies(categories)
   );
   observeEntrances();
+  pauseHeroWhenOffscreen();
 }
 
 /* ---------- Stats strip (computed from the data, nothing hard-coded) ---------- */

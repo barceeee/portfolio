@@ -1,5 +1,7 @@
 /* Opening animation: "RANDY · Now streaming".
-   Hidden unless the inline head script adds .intro-play to <html>. */
+   Hidden unless the inline head script adds .intro-play to <html>.
+   Performance: every animation here uses only transform and opacity, so the GPU
+   composites it without repainting (no animated clip-path, text-shadow, blur or blend modes). */
 .intro-screen { display: none; }
 
 html.intro-play { overflow: hidden; }
@@ -10,26 +12,40 @@ html.intro-play .intro-screen {
 }
 .intro-screen.is-done { animation: intro-out 350ms ease forwards !important; }
 
-.intro-screen__logo { position: relative; animation: intro-zoom 3400ms cubic-bezier(.6, 0, .4, 1) forwards; }
+.intro-screen__logo {
+  position: relative; padding: 0 .06em;
+  will-change: transform, opacity;
+  animation: intro-zoom 3400ms cubic-bezier(.6, 0, .4, 1) forwards;
+}
+/* glow: a soft gradient that fades in (no animated text-shadow) */
+.intro-screen__logo::before {
+  content: ""; position: absolute; inset: -30% -15%; z-index: 0; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(225, 29, 72, .45), rgba(225, 29, 72, 0));
+  opacity: 0; animation: intro-fade-in 900ms ease 900ms forwards;
+}
 .intro-screen__word {
   display: block; position: relative; z-index: 1;
   font: 400 clamp(96px, 22vw, 300px)/.85 "Bebas Neue", "Arial Narrow", sans-serif; letter-spacing: .02em;
-  color: #e11d48; text-shadow: 0 0 0 rgba(225, 29, 72, 0);
-  clip-path: inset(0 100% 0 0);
-  animation: intro-wipe 900ms cubic-bezier(.2, .8, .2, 1) 250ms forwards, intro-glow 1400ms ease 900ms forwards;
+  color: #e11d48;
 }
 .intro-screen__word::after { /* 3D ribbon shadow */
   content: attr(data-intro-word); position: absolute; inset: 0; z-index: -1;
   color: #7f1028; transform: translate(.04em, .04em);
 }
+/* wipe-in: a black panel slides off the letters (transform, instead of animating clip-path) */
+.intro-screen__logo::after {
+  content: ""; position: absolute; inset: 0; z-index: 3; background: #000;
+  transform-origin: right center; will-change: transform;
+  animation: intro-unveil 900ms cubic-bezier(.2, .8, .2, 1) 250ms forwards;
+}
 
-/* light streaks that rush across the letters */
+/* light streaks that rush across the letters (plain opacity, no blend mode) */
 .intro-screen__streaks {
-  position: absolute; inset: -10% -6%; z-index: 2; pointer-events: none; mix-blend-mode: screen;
+  position: absolute; inset: -10% -6%; z-index: 2; pointer-events: none;
   background: repeating-linear-gradient(90deg,
-    rgba(255, 70, 110, 0) 0 14px, rgba(255, 70, 110, .55) 14px 16px, rgba(255, 190, 120, 0) 16px 30px,
-    rgba(120, 160, 255, .35) 30px 31px, rgba(255, 70, 110, 0) 31px 46px);
-  transform-origin: left center; transform: scaleX(0); opacity: 0;
+    rgba(255, 70, 110, 0) 0 14px, rgba(255, 70, 110, .45) 14px 16px, rgba(255, 190, 120, 0) 16px 30px,
+    rgba(120, 160, 255, .28) 30px 31px, rgba(255, 70, 110, 0) 31px 46px);
+  transform-origin: left center; transform: scaleX(0); opacity: 0; will-change: transform, opacity;
   animation: intro-streaks 1300ms cubic-bezier(.3, 0, .2, 1) 1700ms forwards;
 }
 
@@ -41,8 +57,7 @@ html.intro-play .intro-screen {
 .intro-screen__tag b { color: #fff; font-weight: 700; }
 .intro-screen__skip { position: absolute; bottom: 24px; font: 12px Inter, system-ui, sans-serif; color: #55555e; letter-spacing: .08em; }
 
-@keyframes intro-wipe { to { clip-path: inset(0 0 0 0); } }
-@keyframes intro-glow { 50% { text-shadow: 0 0 40px rgba(225, 29, 72, .65); } to { text-shadow: 0 0 18px rgba(225, 29, 72, .35); } }
+@keyframes intro-unveil { to { transform: scaleX(0); } }
 @keyframes intro-zoom {
   0% { transform: scale(.9); opacity: 1; }
   68% { transform: scale(1.03); opacity: 1; }

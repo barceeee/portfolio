@@ -450,3 +450,36 @@ main { padding-bottom: 48px; }
     background: linear-gradient(to top, rgba(0,0,0,.96) 62%, rgba(0,0,0,.75) 84%, rgba(0,0,0,0));
   }
 }
+
+/* ==========================================================
+   Performance: only animate transform and opacity (GPU-composited);
+   no animated blur, blend modes, backdrop blur or layout properties.
+   ========================================================== */
+
+/* Hero glow: soft gradient baked into the shape instead of filter: blur(70px). */
+.hero__blob {
+  filter: none; opacity: .5; will-change: transform;
+  background: radial-gradient(closest-side, hsl(var(--hue, 350) 85% 45% / .9), hsl(var(--hue, 350) 85% 45% / 0)) !important;
+}
+.hero__blob--b { background: radial-gradient(closest-side, hsl(calc(var(--hue, 350) + 40) 80% 35% / .9), hsl(calc(var(--hue, 350) + 40) 80% 35% / 0)) !important; }
+.hero--cover .hero__blob { mix-blend-mode: normal; opacity: .22; }
+.hero__cover { will-change: transform; }
+/* Stop the endless hero motion once it's scrolled out of view (class set in home.js). */
+.hero.is-offscreen .hero__blob, .hero.is-offscreen .hero__cover,
+.study-hero.is-offscreen .hero__blob, .study-hero.is-offscreen .hero__cover { animation-play-state: paused; }
+
+/* Nav and pop-up backdrop: solid instead of re-blurring the page on every scroll frame. */
+.nav.is-solid { backdrop-filter: none; background: rgba(9,9,11,.97); }
+.dialog::backdrop { backdrop-filter: none; background: rgba(0,0,0,.78); }
+
+/* Cards: animate transform only. The preview switches size once (one layout per hover, not one per frame)
+   and fades in; the shadow change is instant instead of re-painted every frame. */
+.card, .top10__poster { transition: transform var(--t-med) var(--ease); }
+.card__preview { transition: opacity var(--t-med) var(--ease); }
+.card__preview > div { transform: translateY(6px); transition: transform var(--t-med) var(--ease); }
+@media (hover: hover) {
+  .card:hover .card__preview > div, .card:focus-visible .card__preview > div { transform: none; }
+}
+.card__body { transition: none; }
+.top10__num { transition: transform var(--t-med) var(--ease); }
+.case { transition: transform var(--t-med) var(--ease); }

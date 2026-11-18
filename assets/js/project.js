@@ -1,4 +1,4 @@
-import { h, has, safeUrl, loadSite, initNav, renderBrand, renderFooter, setCanonical, devNote, reducedMotion } from "./common.js";
+import { h, has, safeUrl, loadSite, initNav, renderBrand, renderFooter, setCanonical, devNote, reducedMotion, pauseHeroWhenOffscreen } from "./common.js";
 
 const main = document.getElementById("main");
 
@@ -77,6 +77,7 @@ function render(item) {
 
   main.replaceChildren(hero, h("div", { class: "study" }, sections));
   reveal();
+  pauseHeroWhenOffscreen();
 }
 
 /** Playable demo (e.g. a Unity WebGL build). The game only downloads after the visitor clicks Play. */
