@@ -1,0 +1,25 @@
+[
+  {
+    "id": "tesda-nc2-css",
+    "title": "National Certificate II in Computer Systems Servicing",
+    "shortTitle": "CSS NC II",
+    "issuer": "Technical Education and Skills Development Authority (TESDA)",
+    "date": "June 16, 2023",
+    "validUntil": "June 15, 2028",
+    "credentialId": "23130802003435",
+    "badge": "NC II",
+    "image": "/assets/certificates/tesda-css-nc2.jpg",
+    "certificateImage": "/assets/certificates/tesda-css-nc2.jpg",
+    "description": "Awarded for completing the competency requirements under the Philippine TVET Competency Assessment and Certification System.",
+    "skills": [
+      "Install and configure computer systems",
+      "Set-up computer networks",
+      "Set-up computer servers",
+      "Maintain and repair computer systems and networks"
+    ],
+    "link": {
+      "label": "Verify on TESDA T2MIS",
+      "url": "https://t2mis.tesda.gov.ph/Learners/S/55004C006B007A0079005A0068004E006F0043006500310079004B00410066003900430076004800510044006500480059003400760070004B00710051004B0063006B0051003200320052006F004E002B00460077003D00"
+    }
+  }
+]

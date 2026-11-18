@@ -1,0 +1,57 @@
+[
+  {
+    "slug": "sti-360",
+    "featured": true,
+    "image": "/assets/img/cover-sti-360.png",
+    "title": "STI-Alabang 360: Campus Management Portal",
+    "shortTitle": "STI-360",
+    "badge": "Featured Capstone",
+    "issuer": "STI College Alabang",
+    "date": "",
+    "role": "",
+    "team": "",
+    "adviser": "",
+    "description": "A campus management portal that connects every department in one dashboard for the full student lifecycle, from admissions to career success.",
+    "techStack": [
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "Supabase",
+      "PostgreSQL",
+      "Edge Functions",
+      "Leaflet",
+      "Recharts",
+      "Tesseract.js",
+      "PDF.js"
+    ],
+    "link": {
+      "label": "Visit live site",
+      "url": "https://sti-360.vercel.app"
+    },
+    "caseStudy": {
+      "problem": "Campus departments each handled their part of the student lifecycle separately. STI-360 brings admissions, guidance, front desk, marketing and student services into one portal.",
+      "features": [
+        {
+          "title": "Role-based dashboards",
+          "description": "Separate dashboards for Superuser, Admin, Front Desk, Guidance, Marketing, Students and exam takers."
+        },
+        {
+          "title": "Online exam portal",
+          "description": "A dedicated login and dashboard for applicants taking the entrance exam."
+        },
+        {
+          "title": "Assessment analysis",
+          "description": "Server-side analysis of assessment results through a Supabase Edge Function."
+        },
+        {
+          "title": "Records archive",
+          "description": "An archive vault for keeping older records out of the active system."
+        }
+      ],
+      "outcomes": [],
+      "liveUrl": "https://sti-360.vercel.app",
+      "repoUrl": "",
+      "images": []
+    }
+  }
+]

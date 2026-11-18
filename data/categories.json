@@ -1,0 +1,71 @@
+[
+  {
+    "id": "languages",
+    "title": "Languages & Tools",
+    "file": "languages.json",
+    "hue": 200,
+    "groups": ["Frontend", "Backend", "Database"],
+    "details": [
+      { "key": "level", "label": "Level" },
+      { "key": "years", "label": "Experience" },
+      { "key": "usedIn", "label": "Used in" }
+    ]
+  },
+  {
+    "id": "certifications",
+    "title": "Certifications",
+    "file": "certifications.json",
+    "hue": 42,
+    "details": [
+      { "key": "credentialId", "label": "Certificate No." },
+      { "key": "validUntil", "label": "Valid until" },
+      { "key": "skills", "label": "Core competencies" }
+    ]
+  },
+  {
+    "id": "education",
+    "title": "Education",
+    "file": "education.json",
+    "hue": 260,
+    "details": [
+      { "key": "period", "label": "Period" },
+      { "key": "location", "label": "Location" },
+      { "key": "honors", "label": "Honors" }
+    ]
+  },
+  {
+    "id": "capstone",
+    "title": "Capstone",
+    "file": "capstone.json",
+    "hue": 18,
+    "caseStudies": true,
+    "details": [
+      { "key": "role", "label": "Role" },
+      { "key": "team", "label": "Team" },
+      { "key": "adviser", "label": "Adviser" },
+      { "key": "techStack", "label": "Tech stack" }
+    ]
+  },
+  {
+    "id": "freelancing",
+    "title": "Freelancing",
+    "file": "freelancing.json",
+    "hue": 150,
+    "caseStudies": true,
+    "details": [
+      { "key": "client", "label": "Client" },
+      { "key": "role", "label": "Role" },
+      { "key": "techStack", "label": "Tech stack" }
+    ]
+  },
+  {
+    "id": "projects",
+    "title": "Personal Projects",
+    "file": "projects.json",
+    "hue": 350,
+    "caseStudies": true,
+    "details": [
+      { "key": "techStack", "label": "Tech stack" }
+    ]
+  }
+]

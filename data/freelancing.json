@@ -1,0 +1,96 @@
+[
+  {
+    "slug": "ball-lalo",
+    "title": "Ball-Lalo Smart Inventory and Order Management System with AI Chatbot",
+    "shortTitle": "Ball-Lalo",
+    "badge": "Freelance",
+    "client": "",
+    "date": "",
+    "role": "Full Stack Developer / Lead Developer",
+    "description": "A smart inventory and order management system with an AI chatbot assistant.",
+    "techStack": [
+      "HTML",
+      "CSS",
+      "JavaScript (vanilla)",
+      "PHP"
+    ],
+    "link": null,
+    "caseStudy": {
+      "problem": "",
+      "features": [
+        {
+          "title": "Inventory tracking",
+          "description": ""
+        },
+        {
+          "title": "Order management",
+          "description": ""
+        },
+        {
+          "title": "AI chatbot assistance",
+          "description": ""
+        }
+      ],
+      "outcomes": [],
+      "liveUrl": "",
+      "repoUrl": "",
+      "images": []
+    }
+  },
+  {
+    "slug": "sassy-strands",
+    "title": "Sassy Strands Inventory & Production Tracker",
+    "shortTitle": "Sassy Strands",
+    "badge": "Live",
+    "client": "Sassy Strands",
+    "date": "",
+    "role": "",
+    "description": "One web app that replaces the client's Excel workbooks for inventory, client orders and production tracking.",
+    "techStack": [
+      "React",
+      "Vite",
+      "Supabase",
+      "PostgreSQL",
+      "Supabase Auth",
+      "Edge Functions",
+      "ExcelJS"
+    ],
+    "link": {
+      "label": "Visit live site",
+      "url": "https://sassystrands.vercel.app"
+    },
+    "caseStudy": {
+      "problem": "The client tracked bundle and closure inventory, available stock and client orders across several Excel workbooks. The goal was a single system for stock, orders and production, with access controlled by role.",
+      "features": [
+        {
+          "title": "Inventory and stock movements",
+          "description": "Stock movements and running balances for bundles and closures, with pricing."
+        },
+        {
+          "title": "Client order monitoring",
+          "description": "Track client orders and their OR numbers in one place."
+        },
+        {
+          "title": "Production stages and QA",
+          "description": "Follow each order through production stages and quality assurance."
+        },
+        {
+          "title": "Spreadsheet import",
+          "description": "Imports the client's existing workbooks and flags every row it cannot read cleanly."
+        },
+        {
+          "title": "Role-based access",
+          "description": "Owner, Admin, Inventory, Production and QA roles enforced in the database with row-level security."
+        },
+        {
+          "title": "Reports",
+          "description": "Reports built from the live inventory and order data."
+        }
+      ],
+      "outcomes": [],
+      "liveUrl": "https://sassystrands.vercel.app",
+      "repoUrl": "https://github.com/barceeee/sassystrands",
+      "images": []
+    }
+  }
+]

@@ -1,0 +1,63 @@
+[
+  {
+    "title": "CommutePH",
+    "badge": "Live",
+    "description": "Route finder for commuters in the Philippines, covering buses, trains, jeepneys and bikes on an interactive map.",
+    "techStack": [],
+    "link": { "label": "Visit live site", "url": "https://commute-ph.vercel.app" }
+  },
+  {
+    "slug": "pagpag",
+    "title": "Pagpag: The Hunger Games",
+    "shortTitle": "Pagpag",
+    "badge": "Game",
+    "description": "A 2D survival game built in Unity, with character creation, two difficulty modes and a hardcore single-slot save.",
+    "techStack": ["C#", "Unity 6", "URP 2D", "Input System", "uGUI"],
+    "link": { "label": "View on GitHub", "url": "https://github.com/barceeee/PagpagTheHungerGames" },
+    "caseStudy": {
+      "problem": "",
+      "features": [
+        { "title": "Character creation", "description": "Play as Dong or Inday, a husband and wife who each have their own backstory." },
+        { "title": "Two difficulty modes", "description": "Tagalog (Normal) and Bisaya (Hard)." },
+        { "title": "Hardcore save", "description": "One persistent run in a single save slot." },
+        { "title": "Playable world map", "description": "A world scene the player explores between locations." },
+        { "title": "Jobs and minigames", "description": "Earn money through labor, service and street minigames at locations around the map." },
+        { "title": "Family management", "description": "Feed the family and send the children to work jobs on their own; their skills and energy decide how well they do." }
+      ],
+      "outcomes": [],
+      "liveUrl": "",
+      "repoUrl": "https://github.com/barceeee/PagpagTheHungerGames",
+      "images": []
+    }
+  },
+  {
+    "title": "RFID Attendance System",
+    "description": "Attendance tracking with RFID cards, backed by a SQL database.",
+    "techStack": ["C#", "SQL"],
+    "link": { "label": "View on GitHub", "url": "https://github.com/barceeee/rfid_attendancesystem" }
+  },
+  {
+    "title": "ATM System",
+    "description": "",
+    "techStack": ["PHP"],
+    "link": { "label": "View on GitHub", "url": "https://github.com/barceeee/atmsys" }
+  },
+  {
+    "title": "Information System",
+    "description": "",
+    "techStack": ["PHP"],
+    "link": { "label": "View on GitHub", "url": "https://github.com/barceeee/informationsystem" }
+  },
+  {
+    "title": "CRUD Project",
+    "description": "",
+    "techStack": ["PHP"],
+    "link": { "label": "View on GitHub", "url": "https://github.com/barceeee/CRUDPROJECT" }
+  },
+  {
+    "title": "Radio Malupet",
+    "description": "",
+    "techStack": ["HTML", "CSS", "JavaScript"],
+    "link": { "label": "View on GitHub", "url": "https://github.com/barceeee/radiomalupet" }
+  }
+]

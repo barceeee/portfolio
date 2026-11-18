@@ -1,0 +1,14 @@
+{
+  "name": "Randy Matthew C. Sanchez",
+  "headline": "4th-year IT student",
+  "location": "",
+  "bio": "",
+  "photo": "/assets/img/profile.jpg",
+  "email": "",
+  "resumeUrl": "",
+  "socials": [
+    { "label": "GitHub", "url": "https://github.com/barceeee" },
+    { "label": "LinkedIn", "url": "" }
+  ],
+  "siteUrl": ""
+}
