@@ -42,6 +42,8 @@
     "title": "Sassy Strands Inventory & Production Tracker",
     "shortTitle": "Sassy Strands",
     "badge": "Live",
+    "image": "/assets/img/cover-sassy-strands.png",
+    "imagePosition": "center",
     "client": "Sassy Strands",
     "date": "",
     "role": "",

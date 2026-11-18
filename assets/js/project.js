@@ -51,7 +51,7 @@ function render(item) {
   const cover = safeUrl(item.image);
   const hero = h("section", { class: `study-hero${cover ? " hero--cover" : ""}`, style: `--hue:${item._cat.hue}` },
     h("div", { class: "hero__art", "aria-hidden": "true" },
-      cover ? h("img", { class: "hero__cover", src: cover, alt: "" }) : null,
+      cover ? h("img", { class: "hero__cover", src: cover, alt: "", style: /^[a-z0-9% .-]+$/i.test(item.imagePosition || "") ? `object-position:${item.imagePosition}` : null }) : null,
       h("span", { class: "hero__blob hero__blob--a" }), h("span", { class: "hero__blob hero__blob--b" })),
     h("a", { class: "back-link", href: "/" }, "← Back to portfolio"),
     h("p", { class: "hero__eyebrow reveal" }, h("b", {}, item.badge || "Case study"), meta ? ` · ${meta}` : ""),

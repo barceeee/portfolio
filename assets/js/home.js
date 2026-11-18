@@ -117,8 +117,11 @@ function renderTrackRow(cat, items, { id, title, level }) {
 
 const cardMeta = (item) => [item.issuer || item.client, item.date].filter(has).join(" · ") || [item.level, item.years].filter(has).join(" · ");
 
+// Optional per-item crop, e.g. "imagePosition": "center" (default: top of the screenshot).
+const imagePos = (item) => (/^[a-z0-9% .-]+$/i.test(item.imagePosition || "") ? `object-position:${item.imagePosition}` : null);
+
 function cardArt(item) {
-  if (safeUrl(item.image)) return h("img", { src: safeUrl(item.image), alt: "", loading: "lazy" });
+  if (safeUrl(item.image)) return h("img", { src: safeUrl(item.image), alt: "", loading: "lazy", style: imagePos(item) });
   if (safeUrl(item.icon)) return h("img", { class: "card__icon", src: safeUrl(item.icon), alt: "", loading: "lazy" });
   return h("span", { class: "card__monogram" }, initials(item.shortTitle || item.title));
 }

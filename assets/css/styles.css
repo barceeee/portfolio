@@ -87,7 +87,10 @@ a { color: inherit; }
 .hero__cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top center; animation: cover-zoom 22s var(--ease) infinite alternate; }
 .hero--cover .hero__blob { opacity: .3; mix-blend-mode: screen; }
 .hero--cover .hero__art::after { background: linear-gradient(90deg, var(--bg) 12%, rgba(9,9,11,.82) 45%, rgba(9,9,11,.25)), linear-gradient(0deg, var(--bg) 2%, transparent 50%); }
-@media (max-width: 760px) { .hero--cover .hero__art::after { background: linear-gradient(0deg, var(--bg) 30%, rgba(9,9,11,.75) 70%, rgba(9,9,11,.45)); } }
+@media (max-width: 760px) {
+  .hero--cover .hero__art::after { background: linear-gradient(0deg, var(--bg) 50%, rgba(9,9,11,.9) 68%, rgba(9,9,11,.55)); }
+  .hero--cover .hero__cover { height: 55%; }
+}
 @keyframes cover-zoom { to { transform: scale(1.06); } }
 @keyframes drift { to { transform: translate(-6vw, 4vw) scale(1.15); } }
 
