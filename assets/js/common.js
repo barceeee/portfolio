@@ -67,7 +67,8 @@ export function initNav() {
 
 export function renderBrand(profile) {
   const name = profile.name || "Portfolio";
-  document.querySelectorAll("[data-brand]").forEach((el) => { el.textContent = name.split(" ")[0]; });
+  // "brand" in profile.json sets the nav logo text (e.g. a nickname); defaults to the first name.
+  document.querySelectorAll("[data-brand]").forEach((el) => { el.textContent = profile.brand || name.split(" ")[0]; });
   document.querySelectorAll("[data-name]").forEach((el) => { el.textContent = name; });
 }
 
@@ -81,7 +82,7 @@ export function renderFooter(profile) {
   ].filter((l) => l && safeUrl(l.url));
   footer.replaceChildren(
     h("p", { style: "margin:0" }, `© ${new Date().getFullYear()} ${profile.name || ""}`),
-    links.length ? h("ul", {}, links.map((l) => h("li", {}, h("a", { href: safeUrl(l.url), rel: "noopener", target: l.url.startsWith("mailto:") ? null : "_blank" }, l.label)))) : null
+    links.length ? h("ul", {}, links.map((l) => h("li", {}, h("a", { href: safeUrl(l.url), ...linkAttrs(safeUrl(l.url)) }, l.label)))) : null
   );
 }
 
@@ -149,3 +150,17 @@ export function languageBar(langs, { caption } = {}) {
     h("ul", { class: "langbar__legend" }, rows.map(([l, p]) =>
       h("li", {}, h("i", { style: `background:${color(l)}`, "aria-hidden": "true" }), h("b", {}, name(l)), ` ${p.toFixed(1)}%`))));
 }
+
+/**
+ * One rule for every link: open a new tab only for full-screen views (playable demos,
+ * full-size certificates) and for other websites. Everything else stays in this tab.
+ */
+export function opensNewTab(url) {
+  if (!url || /^mailto:/i.test(url)) return false;
+  if (/^\/(demos\/|assets\/certificates\/)/.test(url)) return true;
+  try {
+    const u = new URL(url, location.href);
+    return /^https?:$/.test(u.protocol) && u.origin !== location.origin;
+  } catch { return false; }
+}
+export const linkAttrs = (url) => (opensNewTab(url) ? { target: "_blank", rel: "noopener" } : {});

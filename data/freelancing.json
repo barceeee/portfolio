@@ -5,13 +5,12 @@
     "shortTitle": "Ball-Lalo",
     "badge": "Playable",
     "client": "Confidential",
-    "date": "2023 – 2024",
+    "date": "2025 – 2026",
     "role": "Developer (Freelance)",
     "description": "A restaurant management system: menu and inventory, orders and billing, table reservations, sales dashboards, and an AI chatbot that answers customers.",
     "techStack": [
       "HTML",
       "CSS",
-      "Bootstrap",
       "JavaScript (vanilla)",
       "jQuery",
       "PHP",
@@ -22,7 +21,7 @@
     ],
     "link": {
       "label": "Play the demo",
-      "url": "/projects/ball-lalo#demo"
+      "url": "/demos/ball-lalo?autostart=1"
     },
     "caseStudy": {
       "problem": "The restaurant ran its inventory, orders and reservations on paper. It needed one system for its menu, inventory, point of sale (POS) and table reservations that automates stock tracking, product records and stock-level reports.",
@@ -68,8 +67,8 @@
       "liveUrl": "",
       "repoUrl": "",
       "images": [],
-      "demoUrl": "/demos/ball-lalo",
-      "demoNote": "Runs the real PHP app in your browser with sample data. Sign in as admin / demo1234. Works best on a computer."
+      "demoUrl": "/demos/ball-lalo?autostart=1",
+      "demoNote": "Opens full screen and starts by itself, running the real PHP app with sample data. Works best on a computer."
     },
     "image": "/assets/img/cover-ball-lalo.png",
     "imagePosition": "left top"
@@ -132,7 +131,7 @@
         "Imported the client's existing spreadsheets automatically, flagging every row that needed review."
       ],
       "liveUrl": "https://sassystrands.vercel.app",
-      "repoUrl": "https://github.com/barceeee/sassystrands",
+      "repoUrl": "",
       "images": []
     },
     "repo": "sassystrands"

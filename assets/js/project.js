@@ -1,4 +1,4 @@
-import { h, has, safeUrl, loadSite, initNav, renderBrand, renderFooter, setCanonical, devNote, reducedMotion, pauseHeroWhenOffscreen, loadLanguages, repoLanguages, languageBar } from "./common.js";
+import { h, has, safeUrl, loadSite, initNav, renderBrand, renderFooter, setCanonical, devNote, reducedMotion, pauseHeroWhenOffscreen, loadLanguages, repoLanguages, languageBar, linkAttrs } from "./common.js";
 
 const main = document.getElementById("main");
 
@@ -60,49 +60,50 @@ function render(item, gh) {
     item.shortTitle ? h("p", { class: "hero__subtitle reveal", style: "--delay:140ms" }, item.title) : null,
     has(item.description) ? h("p", { class: "hero__desc reveal", style: "--delay:200ms" }, item.description) : null,
     (live || repo || demo) ? h("div", { class: "hero__actions reveal", style: "--delay:260ms" },
-      demo ? h("a", { class: "btn btn--primary", href: "#demo" }, "▶ Play the demo") : null,
-      live ? h("a", { class: `btn ${demo ? "btn--ghost" : "btn--primary"}`, href: live, target: "_blank", rel: "noopener" }, "Live site ↗") : null,
-      repo ? h("a", { class: "btn btn--ghost", href: repo, target: "_blank", rel: "noopener" }, "Source code ↗") : null) : null);
+      demo ? h("a", { class: "btn btn--primary", href: demo, ...linkAttrs(demo) }, "▶ Play the demo") : null,
+      live ? h("a", { class: `btn ${demo ? "btn--ghost" : "btn--primary"}`, href: live, ...linkAttrs(live) }, "Live site ↗") : null,
+      repo ? h("a", { class: "btn btn--ghost", href: repo, ...linkAttrs(repo) }, "Source code ↗") : null) : null);
 
-  const sections = [
+  // Story on the left, project details on the right (stacked on narrow screens).
+  const story = [
     missing.length ? devNote(`Still empty in data/${item._cat.file}: ${missing.join(", ")}. Empty sections are hidden on the live site.`) : null,
     demo && demoBlock(item, demo, cover),
     has(cs.problem) && block("The problem", h("p", {}, cs.problem)),
-    has(item.techStack) && block("Tech stack", h("ul", { class: "chips" }, item.techStack.map((t) => h("li", {}, t)))),
-    item.repo && repoLanguages(gh, item.repo) && block("Languages", languageBar(repoLanguages(gh, item.repo), { caption: "Share of code in the repository, as GitHub counts it" })),
     has(cs.features) && block("Key features", h("ul", { class: "features" }, cs.features.map((f, i) =>
-      h("li", { class: "reveal", style: `--delay:${i * 80}ms` }, h("h3", {}, f.title), has(f.description) ? h("p", {}, f.description) : null)))),
+      h("li", { class: "reveal", style: `--delay:${i * 60}ms` }, h("h3", {}, f.title), has(f.description) ? h("p", {}, f.description) : null)))),
     has(cs.outcomes) && block("Outcomes", h("ul", { class: "outcomes" }, cs.outcomes.map((o) => h("li", {}, o)))),
     has(cs.images) && block("Gallery", h("div", { class: "gallery" }, cs.images.filter((img) => safeUrl(img.src)).map((img) =>
       h("img", { src: safeUrl(img.src), alt: img.alt || "", loading: "lazy" })))),
   ].filter(Boolean);
 
-  main.replaceChildren(hero, h("div", { class: "study" }, sections));
+  const facts = [["Role", item.role], ["Client", item.client], ["Team", item.team], ["Adviser", item.adviser],
+    ["School", item._cat.id === "capstone" ? item.issuer : null], ["Timeline", item.date]].filter(([, v]) => has(v));
+  const details = [
+    facts.length && h("section", { class: "reveal study__card" }, h("h2", {}, "Project details"),
+      h("dl", { class: "facts" }, facts.flatMap(([k, v]) => [h("dt", {}, k), h("dd", {}, v)]))),
+    has(item.techStack) && h("section", { class: "reveal study__card" }, h("h2", {}, "Tech stack"),
+      h("ul", { class: "chips" }, item.techStack.map((t) => h("li", {}, t)))),
+    item.repo && repoLanguages(gh, item.repo) && h("section", { class: "reveal study__card" }, h("h2", {}, "Languages"),
+      languageBar(repoLanguages(gh, item.repo), { caption: "Share of code in the repository, as GitHub counts it" })),
+  ].filter(Boolean);
+
+  main.replaceChildren(hero, h("div", { class: `study${details.length ? " study--split" : ""}` },
+    h("div", { class: "study__main" }, story),
+    details.length ? h("aside", { class: "study__aside", "aria-label": "Project details" }, details) : null));
   reveal();
   pauseHeroWhenOffscreen();
 }
 
-/** Playable demo (e.g. a Unity WebGL build). The game only downloads after the visitor clicks Play. */
+/** Playable demo (e.g. a Unity WebGL build): one click opens it full screen and it starts by itself. */
 function demoBlock(item, url, poster) {
-  const stage = h("div", { class: "demo__stage" });
-  const start = () => {
-    stage.replaceChildren(h("iframe", {
-      class: "demo__frame", src: url, title: `${item.shortTitle || item.title} playable demo`,
-      allow: "fullscreen; autoplay; gamepad", allowfullscreen: true, loading: "eager",
-    }));
-    stage.querySelector("iframe").focus();
-  };
-  stage.append(
-    poster ? h("img", { class: "demo__poster", src: poster, alt: "" }) : null,
-    h("button", { class: "demo__play", type: "button", onclick: start },
-      h("span", { class: "demo__icon", "aria-hidden": "true" }, "▶"),
-      h("span", {}, "Play in your browser"),
-      h("small", {}, item.caseStudy.demoNote || "Loads the game (one-time download). Works best on a computer.")));
   return h("section", { class: "reveal", id: "demo" },
     h("h2", {}, "Play the demo"),
-    stage,
-    h("p", { class: "demo__links" },
-      h("a", { href: url, target: "_blank", rel: "noopener" }, "Open full screen ↗")));
+    h("a", { class: "demo__stage", href: url, ...linkAttrs(url), "aria-label": `Play the ${item.shortTitle || item.title} demo full screen` },
+      poster ? h("img", { class: "demo__poster", src: poster, alt: "" }) : null,
+      h("span", { class: "demo__play" },
+        h("span", { class: "demo__icon", "aria-hidden": "true" }, "▶"),
+        h("span", {}, "Play in your browser"),
+        h("small", {}, item.caseStudy.demoNote || "Opens full screen (one-time download). Works best on a computer."))));
 }
 
 function block(title, body) {

@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .popup.success { background: #28a745; color: white; }
     </style>
 </head>
-<body>
+<body><div style="position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:9999;background:#111;color:#fff;font:14px/1.4 system-ui,sans-serif;padding:10px 16px;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.35);text-align:center"><b>Demo logins</b> &middot; admin / staff / customer &middot; password <b>demo1234</b></div>
 
 <?php if (!empty($error)): ?>
     <div id="errorPopup" class="popup error"><?= htmlspecialchars($error) ?></div>

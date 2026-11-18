@@ -1,4 +1,4 @@
-import { h, has, isDev, safeUrl, loadSite, caseStudyUrl, initials, initNav, renderBrand, renderFooter, setCanonical, devNote, reducedMotion, pauseHeroWhenOffscreen, loadLanguages, repoLanguages, languageBar } from "./common.js";
+import { h, has, isDev, safeUrl, loadSite, caseStudyUrl, initials, initNav, renderBrand, renderFooter, setCanonical, devNote, reducedMotion, pauseHeroWhenOffscreen, loadLanguages, repoLanguages, languageBar, linkAttrs, opensNewTab } from "./common.js";
 
 let GH = null; // GitHub language data
 
@@ -151,7 +151,7 @@ function renderAbout(profile) {
       h("p", { class: "about__bio" }, profile.bio),
       facts.length ? h("ul", { class: "about__facts" }, facts.map(([icon, text, href]) =>
         h("li", {}, h("span", { "aria-hidden": "true" }, icon), " ",
-          href ? h("a", { href, target: href.startsWith("mailto:") ? null : "_blank", rel: "noopener" }, text) : text))) : null));
+          href ? h("a", { href, ...linkAttrs(href) }, text) : text))) : null));
 }
 
 /* ---------- Soft skills strip ---------- */
@@ -257,7 +257,7 @@ function githubSummary() {
   if (!GH) return null;
   const n = Object.keys(GH.repos || {}).length + Object.keys(GH.manual || {}).length;
   const caption = h("span", {}, `Code across my ${n} GitHub repositories`, GH.updated ? ` · updated ${GH.updated} · ` : " · ",
-    h("a", { href: `https://github.com/${GH.user || ""}`, target: "_blank", rel: "noopener" }, "github.com/" + (GH.user || "") + " ↗"));
+    h("a", { href: `https://github.com/${GH.user || ""}`, ...linkAttrs(`https://github.com/${GH.user || ""}`) }, "github.com/" + (GH.user || "") + " ↗"));
   const bar = languageBar(repoLanguages(GH), { caption });
   if (!bar) return null;
   // Bytes favour big repos, so also show how many repositories use each language.
@@ -364,7 +364,7 @@ function openDetails(item, opener) {
       h("h2", { class: "dialog__title", id: "details-title" }, item.title),
       meta ? h("p", { class: "dialog__meta" }, meta) : null,
       has(item.description) ? h("p", { class: "dialog__desc" }, item.description) : null,
-      cert ? h("a", { class: "dialog__cert", href: cert, target: "_blank", rel: "noopener" },
+      cert ? h("a", { class: "dialog__cert", href: cert, ...linkAttrs(cert) },
         h("img", { src: cert, alt: `Scan of the ${item.title} certificate`, loading: "lazy" }),
         h("span", {}, "Open full size ↗")) : null,
       facts.length ? h("dl", { class: "facts" }, facts.flatMap((d) => [
@@ -374,7 +374,7 @@ function openDetails(item, opener) {
       item.repo ? languageBar(repoLanguages(GH, item.repo), { caption: "Languages in the repository (as GitHub counts them)" }) : null,
       h("div", { class: "dialog__actions" },
         url ? h("a", { class: "btn btn--primary btn--small", href: url }, "View case study") : null,
-        link ? h("a", { class: "btn btn--ghost btn--small", href: link, target: "_blank", rel: "noopener" }, `${item.link.label || "Open link"} ↗`) : null)));
+        link ? h("a", { class: "btn btn--ghost btn--small", href: link, ...linkAttrs(link) }, `${item.link.label || "Open link"}${opensNewTab(link) ? " ↗" : ""}`) : null)));
 
   dialog.setAttribute("aria-labelledby", "details-title");
   dialog.showModal();

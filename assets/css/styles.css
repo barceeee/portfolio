@@ -533,3 +533,26 @@ main { padding-bottom: 48px; }
 /* Top 10: lock BOTH axes. With only overflow-x hidden, the browser made the vertical axis
    scrollable, so the wheel nudged the strip by the few pixels the hover zoom pokes out. */
 .row .top10__track { overflow: hidden; overscroll-behavior: contain; padding-top: 26px; padding-bottom: 26px; }
+.demo__stage { display: block; text-decoration: none; color: inherit; }
+
+/* ---------- Case study: two columns on wide screens (no empty right side) ---------- */
+.study { max-width: none; gap: 28px; padding-top: 0; }
+.study__main { display: grid; gap: 36px; align-content: start; min-width: 0; }
+.study__aside { display: grid; gap: 16px; align-content: start; min-width: 0; }
+.study__card { padding: 18px 20px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); }
+.study__card h2 { font-size: 24px; margin: 0 0 12px; }
+.study__card .facts { margin: 0; }
+.study__card .langbar { margin: 0; }
+.study p { max-width: 80ch; }
+@media (min-width: 1100px) {
+  .study--split { grid-template-columns: minmax(0, 1fr) minmax(300px, 380px); gap: 40px; align-items: start; }
+  .study__aside { position: sticky; top: calc(var(--nav-h) + 16px); }
+  .study .features { grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+}
+.study-hero { padding-bottom: 32px; }
+
+/* ---------- Case cards: always the same height ---------- */
+.cases > li { display: flex; }
+.cases .case { flex: 1; height: 100%; }
+.case__desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.study-hero .hero__eyebrow { display: block; line-height: 1.7; }

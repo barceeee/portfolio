@@ -45,6 +45,16 @@ for f in OVERLAY.rglob("*"):
         (OUT / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(f, OUT / rel)
 
+# Visitors may skip the launcher (autostart), so the login page shows the demo logins itself.
+login = OUT / "index.php"
+hint = ('<div style="position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:9999;'
+        'background:#111;color:#fff;font:14px/1.4 system-ui,sans-serif;padding:10px 16px;border-radius:10px;'
+        'box-shadow:0 6px 20px rgba(0,0,0,.35);text-align:center">'
+        '<b>Demo logins</b> &middot; admin / staff / customer &middot; password <b>demo1234</b></div>')
+html = login.read_text(encoding="utf-8")
+assert "<body" in html
+login.write_text(re.sub(r"(<body[^>]*>)", r"\1" + hint.replace("\\", "\\\\"), html, count=1), encoding="utf-8")
+
 # The chatbot was called by absolute path; the demo lives in a sub-folder.
 cd = OUT / "customer_pages" / "customer_dashboard.php"
 if cd.exists():

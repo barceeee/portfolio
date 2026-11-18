@@ -32,7 +32,7 @@
     {
       "title": "Responsive UI Development",
       "icon": "/assets/icons/skills/layout.svg",
-      "description": "Interfaces that work on phones and desktops, built with React, Tailwind CSS, Bootstrap and plain CSS.",
+      "description": "Interfaces that work on phones and desktops, built with React, Tailwind CSS and plain CSS.",
       "shownIn": [
         "STI-360",
         "Sassy Strands",
