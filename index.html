@@ -14,9 +14,30 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap">
   <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/intro.css">
+  <script>
+    // Decide before first paint whether the opening animation plays (once per visit, never with reduced motion).
+    (function () {
+      try {
+        if (location.search.indexOf("nointro") > -1) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        if (sessionStorage.getItem("introSeen")) return;
+        document.documentElement.classList.add("intro-play");
+      } catch (e) { /* storage blocked: skip the intro */ }
+    })();
+  </script>
+  <script src="/assets/js/intro.js" defer></script>
   <script type="module" src="/assets/js/home.js"></script>
 </head>
 <body>
+  <div id="intro" class="intro-screen" aria-hidden="true">
+    <div class="intro-screen__logo">
+      <span class="intro-screen__word" data-intro-word="RANDY">RANDY</span>
+      <span class="intro-screen__streaks"></span>
+    </div>
+    <p class="intro-screen__tag">Now streaming: <b>The Portfolio</b></p>
+    <span class="intro-screen__skip">Click or press any key to skip</span>
+  </div>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="nav">
     <a class="nav__brand" href="/" data-brand>Portfolio</a>

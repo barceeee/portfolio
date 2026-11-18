@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Pagpag: The Hunger Games — Playable Demo</title>
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <style>
+    :root { color-scheme: dark; }
+    html, body { margin: 0; height: 100%; background: #000; overflow: hidden; font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif; color: #f4f4f6; }
+    #unity-canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; background: #000; outline: none; }
+    #loading { position: fixed; inset: 0; display: grid; place-content: center; justify-items: center; gap: 14px; background: radial-gradient(circle at 50% 40%, #2a0a12, #000 70%); transition: opacity .4s ease; }
+    #loading.is-hidden { opacity: 0; pointer-events: none; }
+    #loading h1 { margin: 0; font: 400 clamp(36px, 7vw, 64px)/1 "Bebas Neue", "Arial Narrow", sans-serif; letter-spacing: .04em; color: #f43f5e; }
+    #loading p { margin: 0; font-size: 13px; color: #a1a1ab; letter-spacing: .08em; text-transform: uppercase; }
+    .bar { width: min(320px, 70vw); height: 6px; border-radius: 999px; background: #222; overflow: hidden; }
+    .bar span { display: block; height: 100%; width: 0; background: #f43f5e; transition: width .2s ease; }
+    #error { display: none; max-width: 40ch; text-align: center; font-size: 14px; color: #fca5a5; }
+    #fs { position: fixed; right: 12px; bottom: 12px; z-index: 2; border: 0; border-radius: 6px; padding: 8px 12px; background: rgba(0,0,0,.6); color: #fff; font: 600 12px/1 inherit; cursor: pointer; }
+    #fs:hover { background: #f43f5e; }
+    #fs:focus-visible { outline: 3px solid #fbbf24; outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+  <div id="loading" role="status" aria-live="polite">
+    <h1>Pagpag: The Hunger Games</h1>
+    <div class="bar" aria-hidden="true"><span id="bar"></span></div>
+    <p id="label">Loading game… 0%</p>
+    <p id="error"></p>
+  </div>
+  <button id="fs" type="button" hidden>⛶ Full screen</button>
+  <script>
+    var canvas = document.getElementById("unity-canvas");
+    var bar = document.getElementById("bar"), label = document.getElementById("label");
+    var config = {
+      dataUrl: "Build/WebGL.data.unityweb",
+      frameworkUrl: "Build/WebGL.framework.js.unityweb",
+      codeUrl: "Build/WebGL.wasm.unityweb",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "Randy Matthew C. Sanchez",
+      productName: "Pagpag The Hunger Games",
+      productVersion: "1.0",
+      showBanner: function (msg, type) { if (type === "error") showError(msg); else console.warn(msg); }
+    };
+    function showError(msg) {
+      var e = document.getElementById("error");
+      e.textContent = "The demo couldn't start: " + msg + " Try a desktop browser such as Chrome, Edge or Firefox.";
+      e.style.display = "block"; label.style.display = "none";
+    }
+    var s = document.createElement("script");
+    s.src = "Build/WebGL.loader.js";
+    s.onload = function () {
+      createUnityInstance(canvas, config, function (p) {
+        var pct = Math.round(p * 100);
+        bar.style.width = pct + "%"; label.textContent = "Loading game… " + pct + "%";
+      }).then(function (instance) {
+        document.getElementById("loading").classList.add("is-hidden");
+        var fs = document.getElementById("fs");
+        fs.hidden = false;
+        fs.onclick = function () { instance.SetFullscreen(1); };
+        canvas.focus();
+      }).catch(function (err) { showError(String(err && err.message || err)); });
+    };
+    s.onerror = function () { showError("the game files could not be downloaded."); };
+    document.body.appendChild(s);
+  </script>
+</body>
+</html>

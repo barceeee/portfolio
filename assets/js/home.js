@@ -18,19 +18,88 @@ async function init() {
 
   const all = categories.flatMap((c) => c.items);
   const featured = all.find((i) => i.featured) || all[0];
+  const skills = await fetch("/data/skills.json", { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
 
   renderNavLinks(categories);
   main.replaceChildren(
-    renderHero(featured, profile),
-    renderIntro(profile),
-    ...categories.map(renderRow).filter(Boolean),
+    renderHero(featured, profile, categories),
+    renderTop10(skills),
+    renderSoftSkills(skills),
+    ...clustered(categories),
     renderCaseStudies(categories)
   );
   observeEntrances();
 }
 
+/* ---------- Stats strip (computed from the data, nothing hard-coded) ---------- */
+function computeStats(categories) {
+  const byId = Object.fromEntries(categories.map((c) => [c.id, c.items]));
+  const work = ["capstone", "freelancing", "projects"].flatMap((id) => byId[id] || []);
+  const live = work.filter((i) => /vercel\.app|https?:\/\//.test(i.caseStudy?.liveUrl || "") || /live/i.test(i.link?.label || "")).length;
+  return [
+    [work.length, work.length === 1 ? "project" : "projects"],
+    [live, live === 1 ? "live site" : "live sites"],
+    [(byId.freelancing || []).length, "freelance builds"],
+    [(byId.certifications || []).length, (byId.certifications || []).length === 1 ? "certification" : "certifications"],
+    [(byId.languages || []).length, "languages & tools"],
+  ].filter(([n]) => n > 0);
+}
+
+/* ---------- Top 10 row (Netflix-style ranked posters) — hard skills from data/skills.json ---------- */
+const HARD_CAT = { id: "hard-skills", title: "Hard Skills", hue: 350, details: [{ key: "shownIn", label: "Shown in" }] };
+
+function renderTop10(skills) {
+  const items = (skills?.hard || []).slice(0, 10).map((s) => ({ ...s, _cat: HARD_CAT }));
+  if (!items.length) return null;
+  const top = { title: skills.hardTitle || "Top 10 Hard Skills" };
+  const track = h("ol", { class: "row__track top10__track", "aria-labelledby": "top10-title" },
+    items.map((item, i) => h("li", { class: "top10__item", style: `--i:${i}` },
+      h("span", { class: "top10__num", "aria-hidden": "true" }, String(i + 1)),
+      h("button", { class: "top10__poster", type: "button", style: `--hue:${(200 + i * 37) % 360}`, "aria-haspopup": "dialog",
+        "aria-label": `Number ${i + 1}: ${item.title}`, onclick: (e) => openDetails(item, e.currentTarget) },
+        h("span", { class: "top10__art", "aria-hidden": "true" }, cardArt(item)),
+        h("span", { class: "top10__label" },
+          h("span", { class: "top10__name" }, item.title),
+          h("span", { class: "top10__meta" }, skillMeta(item)))))));
+  return h("section", { class: "row row--top10", id: "row-top10", style: "--hue:350" },
+    h("div", { class: "row__head" },
+      h("h2", { class: "row__title top10__title", id: "top10-title" }, h("span", { class: "top10__badge" }, "TOP", h("b", {}, "10")), top.title)),
+    withArrows(track, top.title));
+}
+
+function skillMeta(item) {
+  const shown = item.shownIn || item.usedIn || [];
+  return shown.length ? `Shown in ${shown.slice(0, 2).join(", ")}${shown.length > 2 ? ` +${shown.length - 2}` : ""}` : [item.level, item.group].filter(has).join(" · ");
+}
+
+/* ---------- Soft skills strip ---------- */
+function renderSoftSkills(skills) {
+  const soft = skills?.soft || [];
+  if (!soft.length) return null;
+  return h("section", { class: "soft reveal", id: "soft-skills", "aria-labelledby": "soft-title" },
+    h("h2", { class: "row__title", id: "soft-title" }, skills.softTitle || "Soft Skills"),
+    h("ul", { class: "soft__list" }, soft.map((s, i) =>
+      h("li", { class: "soft__item", style: `--hue:${(350 + i * 47) % 360}` },
+        h("span", { class: "soft__icon", "aria-hidden": "true" }, s.icon || "★"),
+        h("span", { class: "soft__text" }, h("b", {}, s.title), has(s.evidence) ? h("span", {}, s.evidence) : null)))));
+}
+
+/* Scroll arrows for any horizontal track (mouse users can't side-scroll with a wheel). */
+function withArrows(track, title) {
+  const prev = h("button", { class: "row__arrow row__arrow--prev", type: "button", "aria-label": `Scroll ${title} left`, hidden: true, onclick: () => page(-1) }, "‹");
+  const next = h("button", { class: "row__arrow row__arrow--next", type: "button", "aria-label": `Scroll ${title} right`, onclick: () => page(1) }, "›");
+  function page(dir) { track.scrollBy({ left: dir * track.clientWidth * 0.85, behavior: reducedMotion() ? "auto" : "smooth" }); }
+  function sync() {
+    prev.hidden = track.scrollLeft <= 4;
+    next.hidden = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
+  }
+  track.addEventListener("scroll", sync, { passive: true });
+  new ResizeObserver(sync).observe(track);
+  return h("div", { class: "row__viewport" }, prev, track, next);
+}
+
 /* ---------- Hero ---------- */
-function renderHero(item, profile) {
+function renderHero(item, profile, categories) {
   const hue = item?._cat.hue ?? 350;
   const cover = safeUrl(item?.image);
   const section = h("section", { class: `hero${cover ? " hero--cover" : ""}`, style: `--hue:${hue}`, "aria-labelledby": "hero-title" },
@@ -43,32 +112,54 @@ function renderHero(item, profile) {
     return section;
   }
   const url = caseStudyUrl(item);
+  const stats = computeStats(categories);
   section.append(h("div", { class: "hero__content" },
+    renderIntro(profile),
     h("p", { class: "hero__eyebrow reveal" }, h("b", {}, item.badge || "Featured"), ` · ${item._cat.title}`),
     h("h1", { id: "hero-title", class: "hero__title reveal", style: "--delay:80ms" }, item.shortTitle || item.title),
     item.shortTitle ? h("p", { class: "hero__subtitle reveal", style: "--delay:160ms" }, item.title) : null,
     has(item.description) ? h("p", { class: "hero__desc reveal", style: "--delay:220ms" }, item.description) : null,
     h("div", { class: "hero__actions reveal", style: "--delay:300ms" },
       url ? h("a", { class: "btn btn--primary", href: url }, "▶ View case study") : null,
-      h("button", { class: "btn btn--ghost", type: "button", onclick: (e) => openDetails(item, e.currentTarget) }, "ⓘ More info"))
+      h("button", { class: "btn btn--ghost", type: "button", onclick: (e) => openDetails(item, e.currentTarget) }, "ⓘ More info")),
+    stats.length ? h("ul", { class: "stats reveal", style: "--delay:380ms", "aria-label": "At a glance" },
+      stats.map(([n, label]) => h("li", {}, h("b", {}, String(n)), h("span", {}, label)))) : null
   ));
   return section;
 }
 
 function renderIntro(profile) {
   if (!has(profile.bio) && !has(profile.name)) return null;
-  return h("section", { class: "intro reveal", "aria-label": "About" },
-    has(profile.photo) ? h("img", { class: "intro__photo", src: profile.photo, alt: "", width: 72, height: 72, loading: "lazy", onerror: (e) => e.currentTarget.remove() }) : null,
-    h("p", { class: "intro__text" }, h("strong", {}, profile.name), profile.headline ? ` — ${profile.headline}` : "", has(profile.bio) ? `. ${profile.bio}` : ""));
+  return h("div", { class: "intro reveal", "aria-label": "About" },
+    has(profile.photo) ? h("img", { class: "intro__photo", src: profile.photo, alt: "", width: 44, height: 44, onerror: (e) => e.currentTarget.remove() }) : null,
+    h("p", { class: "intro__text" }, h("strong", {}, profile.name), profile.headline ? h("span", {}, profile.headline) : null, has(profile.bio) ? h("span", {}, profile.bio) : null),
+    has(profile.email) ? h("a", { class: "intro__email", href: `mailto:${profile.email}`, title: profile.email }, "✉ Email me") : null);
 }
 
 function renderNavLinks(categories) {
   const ul = document.querySelector(".nav__links");
   const visible = categories.filter((c) => c.items.length || isDev);
   ul.replaceChildren(
+    h("li", {}, h("a", { href: "#row-top10" }, "Top 10")),
+    h("li", {}, h("a", { href: "#soft-skills" }, "Soft Skills")),
     ...visible.map((c) => h("li", {}, h("a", { href: `#row-${c.id}` }, c.title))),
     h("li", {}, h("a", { href: "#case-studies" }, "Case studies"))
   );
+}
+
+/* Consecutive categories sharing a "cluster" (categories.json) sit side by side on wide screens. */
+function clustered(categories) {
+  const out = [];
+  let group = null;
+  for (const cat of categories) {
+    const row = renderRow(cat);
+    if (!row) continue;
+    if (cat.cluster && group?.key === cat.cluster) { group.el.append(row); continue; }
+    group = cat.cluster ? { key: cat.cluster, el: h("div", { class: "row-cluster" }, row) } : null;
+    out.push(group ? group.el : row);
+  }
+  out.forEach((el) => el.classList?.contains("row-cluster") && el.style.setProperty("--cols", el.children.length));
+  return out;
 }
 
 /* ---------- Rows ---------- */
@@ -82,7 +173,8 @@ function renderRow(cat) {
     .filter(([, items]) => items.length)
     .map(([g, items]) => renderTrackRow(cat, items, { id: `row-${cat.id}-${g.toLowerCase()}`, title: g, level: "h3" }));
   return h("section", { class: "row-group", id: `row-${cat.id}`, "aria-labelledby": `row-${cat.id}-heading` },
-    h("h2", { class: "row-group__title", id: `row-${cat.id}-heading` }, cat.title), rows);
+    h("h2", { class: "row-group__title", id: `row-${cat.id}-heading` }, cat.title),
+    h("div", { class: "row-group__rows" }, rows));
 }
 
 function renderTrackRow(cat, items, { id, title, level }) {
@@ -95,24 +187,11 @@ function renderTrackRow(cat, items, { id, title, level }) {
   }
   items.forEach((item, i) => track.append(h("li", { style: `--i:${Math.min(i, 8)}` }, renderCard(item))));
 
-  const prev = h("button", { class: "row__arrow row__arrow--prev", type: "button", "aria-label": `Scroll ${title} left`, hidden: true, onclick: () => page(-1) }, "‹");
-  const next = h("button", { class: "row__arrow row__arrow--next", type: "button", "aria-label": `Scroll ${title} right`, onclick: () => page(1) }, "›");
-  function page(dir) {
-    track.scrollBy({ left: dir * track.clientWidth * 0.85, behavior: reducedMotion() ? "auto" : "smooth" });
-  }
-  function syncArrows() {
-    const max = track.scrollWidth - track.clientWidth - 4;
-    prev.hidden = track.scrollLeft <= 4;
-    next.hidden = track.scrollLeft >= max;
-  }
-  track.addEventListener("scroll", syncArrows, { passive: true });
-  new ResizeObserver(syncArrows).observe(track);
-
   return h("section", { class: `row${level === "h3" ? " row--sub" : ""}`, id, style: `--hue:${cat.hue}` },
     h("div", { class: "row__head" },
       h(level, { class: "row__title", id: titleId }, title),
       h("span", { class: "row__count" }, items.length ? `${items.length} ${items.length === 1 ? "item" : "items"}` : "")),
-    h("div", { class: "row__viewport" }, prev, track, next));
+    withArrows(track, title));
 }
 
 const cardMeta = (item) => [item.issuer || item.client, item.date].filter(has).join(" · ") || [item.level, item.years].filter(has).join(" · ");
@@ -195,7 +274,7 @@ dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(
 
 /* ---------- Scroll entrances ---------- */
 function observeEntrances() {
-  const targets = document.querySelectorAll(".reveal, .row");
+  const targets = document.querySelectorAll(".reveal, .row, .row-group");
   if (reducedMotion() || !("IntersectionObserver" in window)) {
     targets.forEach((t) => t.classList.add("is-in"));
     return;

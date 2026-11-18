@@ -37,7 +37,7 @@ async function init() {
 
 function render(item) {
   const cs = item.caseStudy || {};
-  const live = safeUrl(cs.liveUrl), repo = safeUrl(cs.repoUrl);
+  const live = safeUrl(cs.liveUrl), repo = safeUrl(cs.repoUrl), demo = safeUrl(cs.demoUrl);
   const meta = [item._cat.title, item.role, item.client, item.date].filter(has).join(" · ");
   const missing = [
     !has(cs.problem) && "caseStudy.problem",
@@ -58,12 +58,14 @@ function render(item) {
     h("h1", { class: "hero__title reveal", style: "--delay:80ms" }, item.shortTitle || item.title),
     item.shortTitle ? h("p", { class: "hero__subtitle reveal", style: "--delay:140ms" }, item.title) : null,
     has(item.description) ? h("p", { class: "hero__desc reveal", style: "--delay:200ms" }, item.description) : null,
-    (live || repo) ? h("div", { class: "hero__actions reveal", style: "--delay:260ms" },
-      live ? h("a", { class: "btn btn--primary", href: live, target: "_blank", rel: "noopener" }, "Live site ↗") : null,
+    (live || repo || demo) ? h("div", { class: "hero__actions reveal", style: "--delay:260ms" },
+      demo ? h("a", { class: "btn btn--primary", href: "#demo" }, "▶ Play the demo") : null,
+      live ? h("a", { class: `btn ${demo ? "btn--ghost" : "btn--primary"}`, href: live, target: "_blank", rel: "noopener" }, "Live site ↗") : null,
       repo ? h("a", { class: "btn btn--ghost", href: repo, target: "_blank", rel: "noopener" }, "Source code ↗") : null) : null);
 
   const sections = [
     missing.length ? devNote(`Still empty in data/${item._cat.file}: ${missing.join(", ")}. Empty sections are hidden on the live site.`) : null,
+    demo && demoBlock(item, demo, cover),
     has(cs.problem) && block("The problem", h("p", {}, cs.problem)),
     has(item.techStack) && block("Tech stack", h("ul", { class: "chips" }, item.techStack.map((t) => h("li", {}, t)))),
     has(cs.features) && block("Key features", h("ul", { class: "features" }, cs.features.map((f, i) =>
@@ -75,6 +77,29 @@ function render(item) {
 
   main.replaceChildren(hero, h("div", { class: "study" }, sections));
   reveal();
+}
+
+/** Playable demo (e.g. a Unity WebGL build). The game only downloads after the visitor clicks Play. */
+function demoBlock(item, url, poster) {
+  const stage = h("div", { class: "demo__stage" });
+  const start = () => {
+    stage.replaceChildren(h("iframe", {
+      class: "demo__frame", src: url, title: `${item.shortTitle || item.title} playable demo`,
+      allow: "fullscreen; autoplay; gamepad", allowfullscreen: true, loading: "eager",
+    }));
+    stage.querySelector("iframe").focus();
+  };
+  stage.append(
+    poster ? h("img", { class: "demo__poster", src: poster, alt: "" }) : null,
+    h("button", { class: "demo__play", type: "button", onclick: start },
+      h("span", { class: "demo__icon", "aria-hidden": "true" }, "▶"),
+      h("span", {}, "Play in your browser"),
+      h("small", {}, item.caseStudy.demoNote || "Loads the game (one-time download). Works best on a computer.")));
+  return h("section", { class: "reveal", id: "demo" },
+    h("h2", {}, "Play the demo"),
+    stage,
+    h("p", { class: "demo__links" },
+      h("a", { href: url, target: "_blank", rel: "noopener" }, "Open full screen ↗")));
 }
 
 function block(title, body) {

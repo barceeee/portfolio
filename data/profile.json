@@ -4,11 +4,17 @@
   "location": "",
   "bio": "",
   "photo": "/assets/img/profile.jpg",
-  "email": "",
+  "email": "sanchezrandymatthew08@gmail.com",
   "resumeUrl": "",
   "socials": [
-    { "label": "GitHub", "url": "https://github.com/barceeee" },
-    { "label": "LinkedIn", "url": "" }
+    {
+      "label": "GitHub",
+      "url": "https://github.com/barceeee"
+    },
+    {
+      "label": "LinkedIn",
+      "url": ""
+    }
   ],
   "siteUrl": ""
 }

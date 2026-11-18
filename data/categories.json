@@ -4,11 +4,24 @@
     "title": "Languages & Tools",
     "file": "languages.json",
     "hue": 200,
-    "groups": ["Frontend", "Backend", "Database"],
+    "groups": [
+      "Frontend",
+      "Backend",
+      "Database"
+    ],
     "details": [
-      { "key": "level", "label": "Level" },
-      { "key": "years", "label": "Experience" },
-      { "key": "usedIn", "label": "Used in" }
+      {
+        "key": "level",
+        "label": "Level"
+      },
+      {
+        "key": "years",
+        "label": "Experience"
+      },
+      {
+        "key": "usedIn",
+        "label": "Used in"
+      }
     ]
   },
   {
@@ -17,10 +30,20 @@
     "file": "certifications.json",
     "hue": 42,
     "details": [
-      { "key": "credentialId", "label": "Certificate No." },
-      { "key": "validUntil", "label": "Valid until" },
-      { "key": "skills", "label": "Core competencies" }
-    ]
+      {
+        "key": "credentialId",
+        "label": "Certificate No."
+      },
+      {
+        "key": "validUntil",
+        "label": "Valid until"
+      },
+      {
+        "key": "skills",
+        "label": "Core competencies"
+      }
+    ],
+    "cluster": "credentials"
   },
   {
     "id": "education",
@@ -28,10 +51,20 @@
     "file": "education.json",
     "hue": 260,
     "details": [
-      { "key": "period", "label": "Period" },
-      { "key": "location", "label": "Location" },
-      { "key": "honors", "label": "Honors" }
-    ]
+      {
+        "key": "period",
+        "label": "Period"
+      },
+      {
+        "key": "location",
+        "label": "Location"
+      },
+      {
+        "key": "honors",
+        "label": "Honors"
+      }
+    ],
+    "cluster": "credentials"
   },
   {
     "id": "capstone",
@@ -40,11 +73,24 @@
     "hue": 18,
     "caseStudies": true,
     "details": [
-      { "key": "role", "label": "Role" },
-      { "key": "team", "label": "Team" },
-      { "key": "adviser", "label": "Adviser" },
-      { "key": "techStack", "label": "Tech stack" }
-    ]
+      {
+        "key": "role",
+        "label": "Role"
+      },
+      {
+        "key": "team",
+        "label": "Team"
+      },
+      {
+        "key": "adviser",
+        "label": "Adviser"
+      },
+      {
+        "key": "techStack",
+        "label": "Tech stack"
+      }
+    ],
+    "cluster": "credentials"
   },
   {
     "id": "freelancing",
@@ -53,10 +99,20 @@
     "hue": 150,
     "caseStudies": true,
     "details": [
-      { "key": "client", "label": "Client" },
-      { "key": "role", "label": "Role" },
-      { "key": "techStack", "label": "Tech stack" }
-    ]
+      {
+        "key": "client",
+        "label": "Client"
+      },
+      {
+        "key": "role",
+        "label": "Role"
+      },
+      {
+        "key": "techStack",
+        "label": "Tech stack"
+      }
+    ],
+    "cluster": "work"
   },
   {
     "id": "projects",
@@ -65,7 +121,11 @@
     "hue": 350,
     "caseStudies": true,
     "details": [
-      { "key": "techStack", "label": "Tech stack" }
-    ]
+      {
+        "key": "techStack",
+        "label": "Tech stack"
+      }
+    ],
+    "cluster": "work"
   }
 ]

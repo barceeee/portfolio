@@ -6,11 +6,11 @@
   {"group": "Frontend", "title": "Tailwind CSS", "icon": "/assets/icons/tailwindcss.svg", "usedIn": ["STI-360"]},
   {"group": "Frontend", "title": "Bootstrap", "icon": "/assets/icons/bootstrap.svg"},
   {"group": "Backend", "title": "Node.js", "icon": "/assets/icons/nodejs.svg", "usedIn": ["STI-360", "Sassy Strands"]},
-  {"group": "Backend", "title": "C#", "icon": "/assets/icons/csharp.svg", "level": "Intermediate", "years": "3 years", "usedIn": ["Pagpag: The Hunger Games", "RFID Attendance System"]},
+  {"group": "Backend", "title": "C#", "icon": "/assets/icons/csharp.svg", "level": "Intermediate", "years": "3 years", "usedIn": ["Pagpag: The Hunger Games"]},
   {"group": "Backend", "title": "Python", "icon": "/assets/icons/python.svg", "level": "Intermediate", "years": "3 years"},
-  {"group": "Backend", "title": "PHP", "icon": "/assets/icons/php.svg", "level": "Intermediate", "years": "3 years", "usedIn": ["Ball-Lalo", "ATM System", "Information System", "CRUD Project"]},
+  {"group": "Backend", "title": "PHP", "icon": "/assets/icons/php.svg", "level": "Intermediate", "years": "3 years", "usedIn": ["Ball-Lalo"]},
   {"group": "Database", "title": "Supabase", "icon": "/assets/icons/supabase.svg", "description": "Hosted PostgreSQL with auth, row-level security and Edge Functions.", "usedIn": ["STI-360", "Sassy Strands"]},
   {"group": "Database", "title": "PostgreSQL", "icon": "/assets/icons/postgresql.svg", "usedIn": ["STI-360", "Sassy Strands"]},
-  {"group": "Database", "title": "MySQL (XAMPP)", "icon": "/assets/icons/xampp.svg", "description": "Local Apache + MySQL/MariaDB + PHP server stack.", "usedIn": ["ATM System", "Information System", "CRUD Project"]},
+  {"group": "Database", "title": "MySQL (XAMPP)", "icon": "/assets/icons/xampp.svg", "description": "Local Apache + MySQL/MariaDB + PHP server stack."},
   {"group": "Database", "title": "phpMyAdmin", "icon": "/assets/icons/phpmyadmin.svg", "description": "Web tool for managing MySQL databases."}
 ]

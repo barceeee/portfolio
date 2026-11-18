@@ -141,3 +141,19 @@ site is served on. When you have a domain:
   zoom and background drift are switched off.
 - Cards are buttons: Tab to them, Enter opens details, Esc closes.
 - Rows scroll by touch, trackpad, or the arrow buttons on hover.
+
+## Skills, Top 10 and the intro
+
+- **`data/skills.json`** holds the **Top 10 Hard Skills** row (`hard`, order = rank, first 10 shown)
+  and the **Soft Skills** strip (`soft`). Each hard skill lists `shownIn`: the projects or
+  certificate that prove it. Icons are in `assets/icons/skills/`.
+- **Languages & Tools** (`data/languages.json`) stays the tech grid, split into Frontend /
+  Backend / Database by each entry's `group`.
+- **Side-by-side rows:** categories with the same `cluster` in `categories.json` sit next to
+  each other on wide screens.
+- **Playable demos:** a case study with `caseStudy.demoUrl` gets a "Play the demo" section.
+  The Pagpag web build lives in `demos/pagpag/` (rebuild it in Unity with
+  **Pagpag ▸ Build Web Demo**, then copy `Builds/WebGL/*` into `demos/pagpag/`).
+- **Opening animation** ("RANDY · Now streaming"): `assets/css/intro.css` + `assets/js/intro.js`.
+  It plays once per browser session, can be skipped with a click or any key, and never plays
+  with "Reduce motion" turned on. Add `?nointro` to the URL to skip it while editing.
