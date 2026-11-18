@@ -21,5 +21,19 @@
       "label": "Verify on TESDA T2MIS",
       "url": "https://t2mis.tesda.gov.ph/Learners/S/55004C006B007A0079005A0068004E006F0043006500310079004B00410066003900430076004800510044006500480059003400760070004B00710051004B0063006B0051003200320052006F004E002B00460077003D00"
     }
+  },
+  {
+    "id": "oracle-java-fundamentals",
+    "title": "Java Fundamentals",
+    "shortTitle": "Java Fundamentals",
+    "issuer": "Oracle Academy",
+    "date": "June 19, 2024",
+    "badge": "Course",
+    "image": "/assets/certificates/oracle-java-fundamentals.jpg",
+    "imagePosition": "center",
+    "certificateImage": "/assets/certificates/oracle-java-fundamentals.jpg",
+    "description": "Award of Course Completion for satisfactory completion of all coursework.",
+    "instructor": "Beronika Peña",
+    "link": null
   }
 ]

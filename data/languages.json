@@ -1,16 +1,17 @@
 [
   {"group": "Frontend", "title": "HTML", "icon": "/assets/icons/html5.svg", "level": "Intermediate", "years": "3 years", "usedIn": ["Ball-Lalo"]},
   {"group": "Frontend", "title": "CSS", "icon": "/assets/icons/css3.svg", "level": "Intermediate", "years": "3 years", "usedIn": ["Ball-Lalo"]},
-  {"group": "Frontend", "title": "JavaScript", "icon": "/assets/icons/javascript.svg", "level": "Intermediate", "years": "3 years", "usedIn": ["Ball-Lalo", "STI-360", "Sassy Strands"]},
-  {"group": "Frontend", "title": "React + Vite", "icon": "/assets/icons/react.svg", "description": "React for the UI, Vite as the dev server and build tool.", "usedIn": ["STI-360", "Sassy Strands"]},
+  {"group": "Frontend", "title": "JavaScript", "icon": "/assets/icons/javascript.svg", "level": "Intermediate", "years": "3 years", "usedIn": ["Ball-Lalo", "STI-360", "Sassy Strands", "CommutePH"]},
+  {"group": "Frontend", "title": "React + Vite", "icon": "/assets/icons/react.svg", "description": "React for the UI, Vite as the dev server and build tool.", "usedIn": ["STI-360", "Sassy Strands", "CommutePH"]},
   {"group": "Frontend", "title": "Tailwind CSS", "icon": "/assets/icons/tailwindcss.svg", "usedIn": ["STI-360"]},
   {"group": "Frontend", "title": "Bootstrap", "icon": "/assets/icons/bootstrap.svg"},
-  {"group": "Backend", "title": "Node.js", "icon": "/assets/icons/nodejs.svg", "usedIn": ["STI-360", "Sassy Strands"]},
+  {"group": "Backend", "title": "Node.js", "icon": "/assets/icons/nodejs.svg", "usedIn": ["STI-360", "Sassy Strands", "CommutePH"]},
   {"group": "Backend", "title": "C#", "icon": "/assets/icons/csharp.svg", "level": "Intermediate", "years": "3 years", "usedIn": ["Pagpag: The Hunger Games"]},
   {"group": "Backend", "title": "Python", "icon": "/assets/icons/python.svg", "level": "Intermediate", "years": "3 years"},
   {"group": "Backend", "title": "PHP", "icon": "/assets/icons/php.svg", "level": "Intermediate", "years": "3 years", "usedIn": ["Ball-Lalo"]},
   {"group": "Database", "title": "Supabase", "icon": "/assets/icons/supabase.svg", "description": "Hosted PostgreSQL with auth, row-level security and Edge Functions.", "usedIn": ["STI-360", "Sassy Strands"]},
   {"group": "Database", "title": "PostgreSQL", "icon": "/assets/icons/postgresql.svg", "usedIn": ["STI-360", "Sassy Strands"]},
-  {"group": "Database", "title": "MySQL (XAMPP)", "icon": "/assets/icons/xampp.svg", "description": "Local Apache + MySQL/MariaDB + PHP server stack."},
-  {"group": "Database", "title": "phpMyAdmin", "icon": "/assets/icons/phpmyadmin.svg", "description": "Web tool for managing MySQL databases."}
+  {"group": "Database", "title": "MySQL (XAMPP)", "icon": "/assets/icons/xampp.svg", "description": "Local Apache + MySQL/MariaDB + PHP server stack.", "usedIn": ["Ball-Lalo"]},
+  {"group": "Database", "title": "phpMyAdmin", "icon": "/assets/icons/phpmyadmin.svg", "description": "Web tool for managing MySQL databases.", "usedIn": ["Ball-Lalo"]},
+  {"group": "Database", "title": "Firebase", "icon": "/assets/icons/firebase.svg", "description": "Google's app backend: database, auth and hosting.", "usedIn": ["CommutePH"]}
 ]

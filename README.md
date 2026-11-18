@@ -55,6 +55,7 @@ Fields every category understands:
 | `link` | `{ "label": "Verify", "url": "https://…" }` |
 | `image` | Optional card image, e.g. `"/assets/img/ball-lalo.png"` |
 | `featured` | `true` puts this entry in the big hero at the top (first one wins) |
+| `monogram` | Optional letters shown on a card with no image, e.g. `"BSIT"` (default: initials) |
 
 Extra fields per category (shown in the details pop-up; edit the list in `categories.json`):
 

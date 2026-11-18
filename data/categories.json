@@ -41,6 +41,10 @@
       {
         "key": "skills",
         "label": "Core competencies"
+      },
+      {
+        "key": "instructor",
+        "label": "Instructor"
       }
     ],
     "cluster": "credentials"

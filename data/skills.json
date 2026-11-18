@@ -1,24 +1,128 @@
 {
   "hardTitle": "Top 10 Hard Skills",
   "hard": [
-    { "title": "Full-Stack Web Development", "icon": "/assets/icons/skills/stack.svg", "description": "Building complete web apps: interface, server logic and database.", "shownIn": ["STI-360", "Sassy Strands", "Ball-Lalo"] },
-    { "title": "Database Design & SQL", "icon": "/assets/icons/skills/database.svg", "description": "Designing schemas, writing migrations and indexing the joins an app relies on.", "shownIn": ["Sassy Strands", "STI-360"] },
-    { "title": "Auth & Role-Based Access", "icon": "/assets/icons/skills/shield.svg", "description": "Logins and per-role permissions enforced in the database with row-level security.", "shownIn": ["Sassy Strands", "STI-360"] },
-    { "title": "Responsive UI Development", "icon": "/assets/icons/skills/layout.svg", "description": "Interfaces that work on phones and desktops, built with React, Tailwind CSS and plain CSS.", "shownIn": ["STI-360", "Sassy Strands", "Ball-Lalo"] },
-    { "title": "AI Chatbot Integration", "icon": "/assets/icons/skills/chat.svg", "description": "Adding an AI chatbot assistant to a business system.", "shownIn": ["Ball-Lalo"] },
-    { "title": "Computer Systems Servicing", "icon": "/assets/icons/skills/cpu.svg", "description": "Installing, configuring, maintaining and repairing computer systems.", "shownIn": ["TESDA CSS NC II"] },
-    { "title": "Network & Server Setup", "icon": "/assets/icons/skills/network.svg", "description": "Setting up computer networks and servers.", "shownIn": ["TESDA CSS NC II"] },
-    { "title": "Cloud Deployment", "icon": "/assets/icons/skills/cloud.svg", "description": "Shipping apps to Vercel with Supabase as the hosted backend.", "shownIn": ["STI-360", "Sassy Strands", "CommutePH"] },
-    { "title": "Game Development", "icon": "/assets/icons/skills/gamepad.svg", "description": "A 2D survival game in Unity and C#: game systems, saves, minigames and UI.", "shownIn": ["Pagpag: The Hunger Games"] },
-    { "title": "Version Control (Git)", "icon": "/assets/icons/skills/git.svg", "description": "Branches, pull requests and GitHub for every project.", "shownIn": ["Sassy Strands", "Pagpag: The Hunger Games", "This portfolio"] }
+    {
+      "title": "Full-Stack Web Development",
+      "icon": "/assets/icons/skills/stack.svg",
+      "description": "Building complete web apps: interface, server logic and database.",
+      "shownIn": [
+        "STI-360",
+        "Sassy Strands",
+        "Ball-Lalo"
+      ]
+    },
+    {
+      "title": "Database Design & SQL",
+      "icon": "/assets/icons/skills/database.svg",
+      "description": "Designing schemas, writing migrations and indexing the joins an app relies on.",
+      "shownIn": [
+        "Sassy Strands",
+        "STI-360"
+      ]
+    },
+    {
+      "title": "Auth & Role-Based Access",
+      "icon": "/assets/icons/skills/shield.svg",
+      "description": "Logins and per-role permissions enforced in the database with row-level security.",
+      "shownIn": [
+        "Sassy Strands",
+        "STI-360"
+      ]
+    },
+    {
+      "title": "Responsive UI Development",
+      "icon": "/assets/icons/skills/layout.svg",
+      "description": "Interfaces that work on phones and desktops, built with React, Tailwind CSS and plain CSS.",
+      "shownIn": [
+        "STI-360",
+        "Sassy Strands",
+        "Ball-Lalo"
+      ]
+    },
+    {
+      "title": "AI Chatbot Integration",
+      "icon": "/assets/icons/skills/chat.svg",
+      "description": "Adding an AI chatbot that answers a business's customers.",
+      "shownIn": [
+        "Ball-Lalo"
+      ]
+    },
+    {
+      "title": "Computer Systems Servicing",
+      "icon": "/assets/icons/skills/cpu.svg",
+      "description": "Installing, configuring, maintaining and repairing computer systems.",
+      "shownIn": [
+        "TESDA CSS NC II"
+      ]
+    },
+    {
+      "title": "Network & Server Setup",
+      "icon": "/assets/icons/skills/network.svg",
+      "description": "Setting up computer networks and servers.",
+      "shownIn": [
+        "TESDA CSS NC II"
+      ]
+    },
+    {
+      "title": "Cloud Deployment",
+      "icon": "/assets/icons/skills/cloud.svg",
+      "description": "Shipping apps to Vercel with Supabase as the hosted backend.",
+      "shownIn": [
+        "STI-360",
+        "Sassy Strands",
+        "CommutePH"
+      ]
+    },
+    {
+      "title": "Game Development",
+      "icon": "/assets/icons/skills/gamepad.svg",
+      "description": "A 2D survival game in Unity and C#: game systems, saves, minigames and UI.",
+      "shownIn": [
+        "Pagpag: The Hunger Games"
+      ]
+    },
+    {
+      "title": "Version Control (Git)",
+      "icon": "/assets/icons/skills/git.svg",
+      "description": "Branches, pull requests and GitHub for every project.",
+      "shownIn": [
+        "Sassy Strands",
+        "Pagpag: The Hunger Games",
+        "This portfolio"
+      ]
+    }
   ],
   "softTitle": "Soft Skills",
   "soft": [
-    { "title": "Leadership", "icon": "🧭", "evidence": "Lead developer on Ball-Lalo" },
-    { "title": "Client Communication", "icon": "💬", "evidence": "Turned two freelance clients' needs into working systems" },
-    { "title": "Teamwork", "icon": "🤝", "evidence": "Capstone team project: STI-360" },
-    { "title": "Problem Solving", "icon": "🧩", "evidence": "Replaced a client's Excel workflow with one app" },
-    { "title": "Adaptability", "icon": "⚡", "evidence": "Web, databases, hardware and game development" },
-    { "title": "Self-Directed Learning", "icon": "📚", "evidence": "Picked up React, Supabase and Unity through projects" }
+    {
+      "title": "Leadership",
+      "icon": "🧭",
+      "evidence": "Lead developer of a 5-person capstone team (STI-360)"
+    },
+    {
+      "title": "Client Communication",
+      "icon": "💬",
+      "evidence": "Turned two freelance clients' needs into working systems"
+    },
+    {
+      "title": "Teamwork",
+      "icon": "🤝",
+      "evidence": "Code reviews and GitHub workflow across the capstone team"
+    },
+    {
+      "title": "Problem Solving",
+      "icon": "🧩",
+      "evidence": "Replaced a client's Excel workflow with one app"
+    },
+    {
+      "title": "Adaptability",
+      "icon": "⚡",
+      "evidence": "Web, databases, hardware and game development"
+    },
+    {
+      "title": "Self-Directed Learning",
+      "icon": "📚",
+      "evidence": "Picked up React, Supabase and Unity through projects"
+    }
   ]
 }

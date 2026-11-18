@@ -2,12 +2,18 @@
   {
     "title": "CommutePH",
     "badge": "Live",
-    "description": "Route finder for commuters in the Philippines, covering buses, trains, jeepneys and bikes on an interactive map.",
-    "techStack": [],
+    "description": "Helps commuters find the right terminals for their journey, across buses, trains, jeepneys and bikes.",
+    "techStack": [
+      "React",
+      "Vite",
+      "Node.js",
+      "Firebase"
+    ],
     "link": {
       "label": "Visit live site",
       "url": "https://commute-ph.vercel.app"
-    }
+    },
+    "role": "Developer"
   },
   {
     "slug": "pagpag",
@@ -54,12 +60,16 @@
           "description": "Feed the family and send the children to work jobs on their own; their skills and energy decide how well they do."
         }
       ],
-      "outcomes": [],
+      "outcomes": [
+        "Designed and built a complete 2D survival game in Unity 6, from main menu to world map, minigames and family system.",
+        "Playable in the browser straight from the portfolio, with no download or install."
+      ],
       "liveUrl": "",
       "repoUrl": "https://github.com/barceeee/PagpagTheHungerGames",
       "images": [],
       "demoUrl": "/demos/pagpag/"
     },
-    "image": "/assets/img/cover-pagpag.png"
+    "image": "/assets/img/cover-pagpag.png",
+    "role": "Lead Developer"
   }
 ]

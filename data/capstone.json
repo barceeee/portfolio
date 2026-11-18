@@ -3,14 +3,14 @@
     "slug": "sti-360",
     "featured": true,
     "image": "/assets/img/cover-sti-360.png",
-    "title": "STI-Alabang 360: Campus Management Portal",
+    "title": "STI-Alabang 360: A Web-Based Integrated Intelligence System for Student Lifecycle Management and Career Success",
     "shortTitle": "STI-360",
     "badge": "Featured Capstone",
     "issuer": "STI College Alabang",
-    "date": "",
-    "role": "",
-    "team": "",
-    "adviser": "",
+    "date": "2025 – Present",
+    "role": "Lead Developer",
+    "team": "5 developers",
+    "adviser": "Manuel Jojo Simon Jr.",
     "description": "A campus management portal that connects every department in one dashboard for the full student lifecycle, from admissions to career success.",
     "techStack": [
       "React",
@@ -32,6 +32,10 @@
       "problem": "Campus departments each handled their part of the student lifecycle separately. STI-360 brings admissions, guidance, front desk, marketing and student services into one portal.",
       "features": [
         {
+          "title": "Architecture & team leadership",
+          "description": "Set the system architecture, database design and coding standards; coordinate tasks, code reviews and version control on GitHub."
+        },
+        {
           "title": "Role-based dashboards",
           "description": "Separate dashboards for Superuser, Admin, Front Desk, Guidance, Marketing, Students and exam takers."
         },
@@ -48,7 +52,10 @@
           "description": "An archive vault for keeping older records out of the active system."
         }
       ],
-      "outcomes": [],
+      "outcomes": [
+        "Led a team of 5 developers from architecture through deployment; live at sti-360.vercel.app.",
+        "Brought 4 departments into one portal with 7 role-based dashboards: Superuser, Admin, Front Desk, Guidance, Marketing, Student and Exam Taker."
+      ],
       "liveUrl": "https://sti-360.vercel.app",
       "repoUrl": "",
       "images": []

@@ -24,6 +24,7 @@ async function init() {
   main.replaceChildren(
     renderHero(featured, profile, categories),
     renderTop10(skills),
+    renderAbout(profile),
     renderSoftSkills(skills),
     ...clustered(categories),
     renderCaseStudies(categories)
@@ -70,6 +71,24 @@ function renderTop10(skills) {
 function skillMeta(item) {
   const shown = item.shownIn || item.usedIn || [];
   return shown.length ? `Shown in ${shown.slice(0, 2).join(", ")}${shown.length > 2 ? ` +${shown.length - 2}` : ""}` : [item.level, item.group].filter(has).join(" · ");
+}
+
+/* ---------- About me ---------- */
+function renderAbout(profile) {
+  if (!has(profile.bio)) return null;
+  const facts = [
+    has(profile.location) && ["📍", profile.location, null],
+    has(profile.email) && ["✉", profile.email, `mailto:${profile.email}`],
+    ...(profile.socials || []).filter((s) => safeUrl(s.url)).map((s) => ["↗", s.label, safeUrl(s.url)]),
+  ].filter(Boolean);
+  return h("section", { class: "about reveal", id: "about", "aria-labelledby": "about-title" },
+    has(profile.photo) ? h("img", { class: "about__photo", src: profile.photo, alt: profile.name || "", width: 112, height: 112, loading: "lazy" }) : null,
+    h("div", { class: "about__body" },
+      h("h2", { class: "row__title", id: "about-title" }, "About me"),
+      h("p", { class: "about__bio" }, profile.bio),
+      facts.length ? h("ul", { class: "about__facts" }, facts.map(([icon, text, href]) =>
+        h("li", {}, h("span", { "aria-hidden": "true" }, icon), " ",
+          href ? h("a", { href, target: href.startsWith("mailto:") ? null : "_blank", rel: "noopener" }, text) : text))) : null));
 }
 
 /* ---------- Soft skills strip ---------- */
@@ -132,7 +151,7 @@ function renderIntro(profile) {
   if (!has(profile.bio) && !has(profile.name)) return null;
   return h("div", { class: "intro reveal", "aria-label": "About" },
     has(profile.photo) ? h("img", { class: "intro__photo", src: profile.photo, alt: "", width: 44, height: 44, onerror: (e) => e.currentTarget.remove() }) : null,
-    h("p", { class: "intro__text" }, h("strong", {}, profile.name), profile.headline ? h("span", {}, profile.headline) : null, has(profile.bio) ? h("span", {}, profile.bio) : null),
+    h("p", { class: "intro__text" }, h("strong", {}, profile.name), profile.headline ? h("span", {}, profile.headline) : null),
     has(profile.email) ? h("a", { class: "intro__email", href: `mailto:${profile.email}`, title: profile.email }, "✉ Email me") : null);
 }
 
@@ -141,6 +160,7 @@ function renderNavLinks(categories) {
   const visible = categories.filter((c) => c.items.length || isDev);
   ul.replaceChildren(
     h("li", {}, h("a", { href: "#row-top10" }, "Top 10")),
+    h("li", {}, h("a", { href: "#about" }, "About")),
     h("li", {}, h("a", { href: "#soft-skills" }, "Soft Skills")),
     ...visible.map((c) => h("li", {}, h("a", { href: `#row-${c.id}` }, c.title))),
     h("li", {}, h("a", { href: "#case-studies" }, "Case studies"))
@@ -202,7 +222,7 @@ const imagePos = (item) => (/^[a-z0-9% .-]+$/i.test(item.imagePosition || "") ? 
 function cardArt(item) {
   if (safeUrl(item.image)) return h("img", { src: safeUrl(item.image), alt: "", loading: "lazy", style: imagePos(item) });
   if (safeUrl(item.icon)) return h("img", { class: "card__icon", src: safeUrl(item.icon), alt: "", loading: "lazy" });
-  return h("span", { class: "card__monogram" }, initials(item.shortTitle || item.title));
+  return h("span", { class: "card__monogram" }, (item.monogram || initials(item.shortTitle || item.title)));
 }
 
 function renderCard(item) {
@@ -248,7 +268,7 @@ function openDetails(item, opener) {
   const cert = safeUrl(item.certificateImage);
   dialog.replaceChildren(
     h("div", { class: `dialog__art card__art${item.icon ? " card__art--icon" : ""}`, style: `--hue:${cat.hue}` },
-      item.icon ? cardArt(item) : h("span", { class: "card__monogram", "aria-hidden": "true" }, initials(item.shortTitle || item.title)),
+      item.icon ? cardArt(item) : h("span", { class: "card__monogram", "aria-hidden": "true" }, (item.monogram || initials(item.shortTitle || item.title))),
       h("button", { class: "dialog__close", type: "button", "aria-label": "Close", onclick: () => dialog.close() }, "×")),
     h("div", { class: "dialog__body" },
       h("p", { class: "dialog__kicker" }, [cat.title, item.group].filter(has).join(" · ")),

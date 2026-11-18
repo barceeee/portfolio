@@ -4,22 +4,27 @@
     "title": "Ball-Lalo Smart Inventory and Order Management System with AI Chatbot",
     "shortTitle": "Ball-Lalo",
     "badge": "Freelance",
-    "client": "",
+    "client": "Confidential",
     "date": "",
-    "role": "Full Stack Developer / Lead Developer",
+    "role": "Developer (Freelance)",
     "description": "A smart inventory and order management system with an AI chatbot assistant.",
     "techStack": [
       "HTML",
       "CSS",
       "JavaScript (vanilla)",
-      "PHP"
+      "PHP",
+      "MySQL"
     ],
     "link": null,
     "caseStudy": {
-      "problem": "",
+      "problem": "The business ran its inventory and sales on paper. It needed one system for inventory and point of sale (POS) that automates stock tracking, product records and stock-level reports.",
       "features": [
         {
           "title": "Inventory tracking",
+          "description": "Automated stock tracking and product records."
+        },
+        {
+          "title": "Point of sale (POS)",
           "description": ""
         },
         {
@@ -28,10 +33,14 @@
         },
         {
           "title": "AI chatbot assistance",
-          "description": ""
+          "description": "A chatbot that answers customers' questions."
         }
       ],
-      "outcomes": [],
+      "outcomes": [
+        "Replaced paper-based records with one system for stock, sales and orders.",
+        "Automated stock-level reports that used to take much longer to prepare by hand.",
+        "Added an AI chatbot that answers customers' questions."
+      ],
       "liveUrl": "",
       "repoUrl": "",
       "images": []
@@ -46,7 +55,7 @@
     "imagePosition": "center",
     "client": "Sassy Strands",
     "date": "",
-    "role": "",
+    "role": "Developer (Freelance)",
     "description": "One web app that replaces the client's Excel workbooks for inventory, client orders and production tracking.",
     "techStack": [
       "React",
@@ -89,7 +98,11 @@
           "description": "Reports built from the live inventory and order data."
         }
       ],
-      "outcomes": [],
+      "outcomes": [
+        "Replaced the client's Excel workbooks with one web app for inventory, client orders, production and QA.",
+        "Five staff roles (Owner, Admin, Inventory, Production, QA) each see only what they need, enforced in the database.",
+        "Imported the client's existing spreadsheets automatically, flagging every row that needed review."
+      ],
       "liveUrl": "https://sassystrands.vercel.app",
       "repoUrl": "https://github.com/barceeee/sassystrands",
       "images": []
