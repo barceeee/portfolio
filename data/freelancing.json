@@ -7,34 +7,54 @@
     "client": "Confidential",
     "date": "2023 – 2024",
     "role": "Developer (Freelance)",
-    "description": "A smart inventory and order management system with an AI chatbot assistant.",
+    "description": "A restaurant management system: menu and inventory, orders and billing, table reservations, sales dashboards, and an AI chatbot that answers customers.",
     "techStack": [
       "HTML",
       "CSS",
       "Bootstrap",
       "JavaScript (vanilla)",
+      "jQuery",
       "PHP",
-      "MySQL"
+      "MySQL (MariaDB)",
+      "Chart.js",
+      "FullCalendar",
+      "OpenAI API (GPT-4o-mini)"
     ],
     "link": null,
     "caseStudy": {
-      "problem": "The business ran its inventory and sales on paper. It needed one system for inventory and point of sale (POS) that automates stock tracking, product records and stock-level reports.",
+      "problem": "The restaurant ran its inventory, orders and reservations on paper. It needed one system for its menu, inventory, point of sale (POS) and table reservations that automates stock tracking, product records and stock-level reports.",
       "features": [
         {
           "title": "Inventory tracking",
-          "description": "Automated stock tracking and product records."
+          "description": "Track stock levels and supplies, with automated stock-level reports."
         },
         {
-          "title": "Point of sale (POS)",
-          "description": ""
+          "title": "Menu management",
+          "description": "Add, edit and price the restaurant's menu items."
         },
         {
-          "title": "Order management",
-          "description": ""
+          "title": "Point of sale (POS) & billing",
+          "description": "Take orders, update their status as they're served, and generate bills."
+        },
+        {
+          "title": "Table reservations",
+          "description": "Customers book from a calendar; taken time slots are blocked and reservations update their status automatically."
+        },
+        {
+          "title": "Sales & customer analytics",
+          "description": "Dashboard charts of sales data and customer activity."
+        },
+        {
+          "title": "Ratings & feedback",
+          "description": "Customers rate their dining experience and leave feedback."
+        },
+        {
+          "title": "Role-based accounts",
+          "description": "Separate admin, staff and customer accounts, each with its own dashboard."
         },
         {
           "title": "AI chatbot assistance",
-          "description": "A chatbot that answers customers' questions."
+          "description": "A GPT-4o-mini restaurant assistant that answers customers' questions about reservations, dining and policies."
         }
       ],
       "outcomes": [

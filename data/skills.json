@@ -42,7 +42,7 @@
     {
       "title": "AI Chatbot Integration",
       "icon": "/assets/icons/skills/chat.svg",
-      "description": "Adding an AI chatbot that answers a business's customers.",
+      "description": "Connecting a business system to OpenAI's GPT-4o-mini so a chatbot answers customers' questions.",
       "shownIn": [
         "Ball-Lalo"
       ]
