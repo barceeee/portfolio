@@ -175,11 +175,18 @@ function clustered(categories) {
   for (const cat of categories) {
     const row = renderRow(cat);
     if (!row) continue;
-    if (cat.cluster && group?.key === cat.cluster) { group.el.append(row); continue; }
-    group = cat.cluster ? { key: cat.cluster, el: h("div", { class: "row-cluster" }, row) } : null;
+    // Each row's card count sizes its column, so every card in the cluster ends up the same width.
+    row.style.setProperty("--n", Math.max(1, cat.items.length));
+    if (cat.cluster && group?.key === cat.cluster) { group.el.append(row); group.counts.push(Math.max(1, cat.items.length)); continue; }
+    group = cat.cluster ? { key: cat.cluster, el: h("div", { class: "row-cluster" }, row), counts: [Math.max(1, cat.items.length)] } : null;
+    if (group) group.el._counts = group.counts;
     out.push(group ? group.el : row);
   }
-  out.forEach((el) => el.classList?.contains("row-cluster") && el.style.setProperty("--cols", el.children.length));
+  out.forEach((el) => {
+    if (!el.classList?.contains("row-cluster")) return;
+    el.style.setProperty("--cols", el.children.length);
+    el.style.setProperty("--cluster-cols", el._counts.map((n) => `minmax(0, ${n}fr)`).join(" "));
+  });
   return out;
 }
 

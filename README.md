@@ -154,7 +154,7 @@ site is served on. When you have a domain:
   each other on wide screens.
 - **Playable demos:** a case study with `caseStudy.demoUrl` gets a "Play the demo" section.
   The Pagpag web build lives in `demos/pagpag/` (rebuild it in Unity with
-  **Pagpag ▸ Build Web Demo**, then copy `Builds/WebGL/*` into `demos/pagpag/`).
+  **Pagpag ▸ Build Web Demo**, then copy only the `Builds/WebGL/Build` folder over `demos/pagpag/Build`; keep the custom `demos/pagpag/index.html`).
 - **Opening animation** ("RANDY · Now streaming"): `assets/css/intro.css` + `assets/js/intro.js`.
   It plays once per browser session, can be skipped with a click or any key, and never plays
   with "Reduce motion" turned on. Add `?nointro` to the URL to skip it while editing.

@@ -483,3 +483,20 @@ main { padding-bottom: 48px; }
 .card__body { transition: none; }
 .top10__num { transition: transform var(--t-med) var(--ease); }
 .case { transition: transform var(--t-med) var(--ease); }
+
+/* ---------- Clusters: columns sized by card count, cards laid out in a grid (no scrolling) ---------- */
+@media (min-width: 1000px) {
+  .row-cluster { grid-template-columns: var(--cluster-cols, repeat(var(--cols, 2), minmax(0, 1fr))); }
+  .row-cluster .row__track {
+    display: grid; grid-template-columns: repeat(var(--n, 1), minmax(0, 1fr)); gap: 12px;
+    overflow: visible; scroll-snap-type: none;
+  }
+  .row-cluster .row__track > li { flex: none; min-width: 0; }
+  .row-cluster .row__arrow { display: none; }
+}
+
+/* ---------- Top 10: move only with the arrows (no wheel/trackpad/swipe scrolling) ---------- */
+.row .top10__track { overflow-x: hidden; scroll-snap-type: x mandatory; touch-action: pan-y; }
+.row--top10 .row__arrow { display: grid; opacity: 1; background: rgba(9,9,11,.72); }
+.row--top10 .row__arrow:hover { background: rgba(244,63,94,.85); }
+.row--top10 .row__arrow[hidden] { display: none; }
