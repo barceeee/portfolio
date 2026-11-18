@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #e5d4d4, #cbbaba);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px; 
+}
+
+.container.signup {
+    flex-direction: row-reverse;
+}
+
+.logo {
+    max-width: 280px;
+}
+
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
+    width: 380px;
+    text-align: center;
+    border: none;
+}
+
+.card h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.card p {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box; 
+}
+
+button {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #555;
+}
+
+.text-link {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.text-link a {
+    color: #ff9933;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.text-link a:hover {
+    text-decoration: underline;
+}
+div#loader-container{
+    display: flex;
+    justify-content: center;
+    
+}

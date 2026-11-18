@@ -1,0 +1,223 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------- MAIN LAYOUT ---------- */
+.main {
+    margin-left: 220px; /* expanded sidebar */
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+/* adjust when sidebar is collapsed */
+.sidebar.collapsed ~ .main {
+    margin-left: 60px; /* collapsed sidebar */
+}
+
+.content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- CATEGORY BUTTONS ---------- */
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    z-index: 10;
+    position: relative;
+}
+
+.categories button {
+    background: #e0e0e0;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.categories button.active,
+.categories button:hover {
+    background: #c6a74e;
+    color: #fff;
+}
+
+/* ---------- ORDERS CONTAINER ---------- */
+.orders-container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px; /* auto-expands */
+    gap: 20px;
+    align-items: flex-start;
+    flex: 1;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* ---------- MENU ITEMS ---------- */
+.category {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.card h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.card p {
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.card button {
+    background: #c6a74e;
+    color: #fff;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    width: 100%;
+}
+
+.card button:hover {
+    background: #a98c3c;
+}
+
+/* ---------- ORDER SUMMARY ---------- */
+.order-summary {
+    position: sticky;
+    top: 20px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    height: 50vh;
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+}
+
+.order-summary h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.order-list {
+    flex: 1;
+    max-height: calc(60vh - 100px);
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+/* Custom Scrollbar */
+.order-list::-webkit-scrollbar { width: 6px; }
+.order-list::-webkit-scrollbar-thumb {
+    background: #c6a74e;
+    border-radius: 4px;
+}
+.order-list::-webkit-scrollbar-thumb:hover { background: #a98c3c; }
+.order-list::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+}
+
+.order-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+/* Quantity Controls */
+.qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.qty-btn {
+    background: #e0e0e0;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+    font-weight: bold;
+}
+.qty-btn:hover { background: #ccc; }
+.qty-val {
+    min-width: 22px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.order-total {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.bill-btn {
+    background: #c6a74e;
+    color: #fff;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    width: 100%;
+    margin-top: 10px;
+}
+.bill-btn:hover { background: #a98c3c; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 992px) {
+    .orders-container {
+        grid-template-columns: 1fr;
+    }
+
+    .order-summary {
+        position: relative;
+        height: auto;
+        margin-top: 20px;
+        max-width: 100%;
+    }
+}

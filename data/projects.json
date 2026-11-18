@@ -14,7 +14,9 @@
       "url": "https://commute-ph.vercel.app"
     },
     "role": "Developer",
-    "date": "2024 – 2025"
+    "date": "2024 – 2025",
+    "image": "/assets/img/cover-commute-ph.png",
+    "imagePosition": "left top"
   },
   {
     "slug": "pagpag",

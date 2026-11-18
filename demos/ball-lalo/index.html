@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Time-Out Ball-Lalo — Live Demo</title>
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <style>
+    :root { color-scheme: dark; --bg:#09090b; --card:#141418; --line:#2a2a32; --text:#f4f4f6; --muted:#a1a1ab; --accent:#f43f5e; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: radial-gradient(circle at 50% 0%, #2a0a12, var(--bg) 70%); color: var(--text);
+      font: 15px/1.55 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+    main { min-height: 100vh; display: grid; place-items: center; padding: 20px 16px; }
+    .card { width: min(560px, 100%); background: rgba(20,20,24,.92); border: 1px solid var(--line); border-radius: 16px; padding: 24px; text-align: center; }
+    .logo { width: 112px; height: 112px; object-fit: contain; }
+    h1 { margin: 8px 0 4px; font: 400 32px/1.05 "Bebas Neue", "Arial Narrow", sans-serif; letter-spacing: .03em; }
+    .lead { margin: 0 0 18px; color: var(--muted); font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; margin: 0 0 18px; font-size: 14px; text-align: left; }
+    th, td { padding: 7px 10px; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+    code { font: 600 13px/1 ui-monospace, Consolas, monospace; color: #fff; background: #222; padding: 2px 6px; border-radius: 4px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 26px; border: 0; border-radius: 8px;
+      background: var(--accent); color: #fff; font: 700 16px/1 inherit; cursor: pointer; }
+    .btn:hover { filter: brightness(1.1); }
+    .btn:disabled { opacity: .6; cursor: wait; }
+    .btn:focus-visible, a:focus-visible { outline: 3px solid #fbbf24; outline-offset: 3px; }
+    #status { min-height: 1.5em; margin: 12px 0 0; color: var(--muted); font-size: 13px; }
+    #status.error { color: #fca5a5; }
+    .small { margin: 14px 0 0; font-size: 12.5px; color: var(--muted); }
+    .small a { color: var(--text); }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card" aria-labelledby="title">
+      <img class="logo" src="/demos/ball-lalo/www/assets/images/timeoutlogo.png" alt="Time-Out Ball-Lalo logo">
+      <h1 id="title">Time-Out Ball-Lalo: live demo</h1>
+      <p class="lead">The real PHP app, running entirely in your browser with sample data. Menu, orders, billing, reservations, inventory and analytics all work.</p>
+      <table>
+        <thead><tr><th>Sign in as</th><th>Username</th><th>Password</th></tr></thead>
+        <tbody>
+          <tr><td>Admin (all pages)</td><td><code>admin</code></td><td><code>demo1234</code></td></tr>
+          <tr><td>Staff</td><td><code>staff</code></td><td><code>demo1234</code></td></tr>
+          <tr><td>Customer</td><td><code>customer</code></td><td><code>demo1234</code></td></tr>
+        </tbody>
+      </table>
+      <button class="btn" id="launch" type="button">▶ Launch demo</button>
+      <p id="status" role="status" aria-live="polite"></p>
+      <p class="small">First launch downloads about 15&nbsp;MB (PHP + SQLite), then it's instant. Changes are saved only in this browser ·
+        <a href="/demos/ball-lalo/app/demo/reset.php" id="reset">Reset demo data</a></p>
+    </section>
+  </main>
+  <script>
+    const BASE = '/demos/ball-lalo/';
+    const btn = document.getElementById('launch');
+    const status = document.getElementById('status');
+    const say = (msg, isError) => { status.textContent = msg; status.classList.toggle('error', !!isError); };
+
+    // Registers the PHP worker and waits until it is active. This launcher page may sit just
+    // outside the worker's scope (e.g. "/demos/ball-lalo" without the slash), so it isn't
+    // necessarily controlled; opening /app/... goes through the worker either way.
+    async function ready() {
+      if (!('serviceWorker' in navigator)) throw new Error('This browser does not support service workers.');
+      const reg = await navigator.serviceWorker.register(BASE + 'sw.mjs', { type: 'module', scope: BASE });
+      const worker = reg.active || reg.waiting || reg.installing;
+      if (worker && worker.state !== 'activated') {
+        await new Promise((resolve, reject) => worker.addEventListener('statechange', () => {
+          if (worker.state === 'activated') resolve();
+          if (worker.state === 'redundant') reject(new Error('the PHP worker failed to install.'));
+        }));
+      }
+      return reg;
+    }
+
+    async function launch(target) {
+      btn.disabled = true;
+      try {
+        say('Starting the PHP runtime…');
+        await ready();
+        if (navigator.serviceWorker.controller) {
+          // Warm PHP up first so the app opens instantly (only possible when this page is controlled).
+          say('Loading PHP and the sample database (first time only)…');
+          const res = await fetch(BASE + 'app/demo/ping.php', { cache: 'no-store' });
+          if (!res.ok || (await res.text()).trim() !== 'ok') throw new Error('PHP did not start (' + res.status + ').');
+        }
+        say('Opening the app… (the first start takes a few seconds)');
+        location.href = target || (BASE + 'app/index.php');
+      } catch (err) {
+        say('The demo could not start: ' + err.message + ' Try Chrome, Edge or Firefox on a computer.', true);
+        btn.disabled = false;
+      }
+    }
+
+    btn.addEventListener('click', () => launch());
+    document.getElementById('reset').addEventListener('click', (e) => { e.preventDefault(); launch(BASE + 'app/demo/reset.php'); });
+  </script>
+</body>
+</html>

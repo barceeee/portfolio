@@ -3,7 +3,7 @@
     "slug": "ball-lalo",
     "title": "Ball-Lalo Smart Inventory and Order Management System with AI Chatbot",
     "shortTitle": "Ball-Lalo",
-    "badge": "Freelance",
+    "badge": "Playable",
     "client": "Confidential",
     "date": "2023 – 2024",
     "role": "Developer (Freelance)",
@@ -20,7 +20,10 @@
       "FullCalendar",
       "OpenAI API (GPT-4o-mini)"
     ],
-    "link": null,
+    "link": {
+      "label": "Play the demo",
+      "url": "/projects/ball-lalo#demo"
+    },
     "caseStudy": {
       "problem": "The restaurant ran its inventory, orders and reservations on paper. It needed one system for its menu, inventory, point of sale (POS) and table reservations that automates stock tracking, product records and stock-level reports.",
       "features": [
@@ -64,8 +67,12 @@
       ],
       "liveUrl": "",
       "repoUrl": "",
-      "images": []
-    }
+      "images": [],
+      "demoUrl": "/demos/ball-lalo",
+      "demoNote": "Runs the real PHP app in your browser with sample data. Sign in as admin / demo1234. Works best on a computer."
+    },
+    "image": "/assets/img/cover-ball-lalo.png",
+    "imagePosition": "left top"
   },
   {
     "slug": "sassy-strands",

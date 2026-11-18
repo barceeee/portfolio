@@ -1,4 +1,4 @@
-/* Opening animation: "RANDY" logo reveal.
+/* Opening animation: "MATT" logo reveal.
    Hidden unless the inline head script adds .intro-play to <html>.
    Performance: every animation here uses only transform and opacity, so the GPU
    composites it without repainting (no animated clip-path, text-shadow, blur or blend modes). */

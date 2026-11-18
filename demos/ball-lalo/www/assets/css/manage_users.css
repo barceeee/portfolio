@@ -1,0 +1,68 @@
+.content h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+.btn-create { background: #4CAF50; color: #fff; }
+.btn-export { background: #2196F3; color: #fff; }
+.btn-edit   { background: #FFC107; color: #000; }
+.btn-delete { background: #F44336; color: #fff; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #fff;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+thead {
+    background: #f4f4f4;
+}
+
+tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.status.Active {
+    color: green;
+    font-weight: bold;
+}
+
+.status.Inactive {
+    color: red;
+    font-weight: bold;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 30%;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    z-index: 1000;
+}
+
+/* Search box */
+#searchBox {
+    margin: 10px 0;
+    padding: 6px;
+    width: 200px;
+}

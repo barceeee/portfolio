@@ -1,0 +1,74 @@
+/* === Sidebar (shared across all pages) === */
+.sidebar {
+    width: 60px; /* collapsed default */
+    height: 100vh;
+    background: #333;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    transition: width 0.3s ease;
+    overflow-x: hidden;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+/* Expand on hover */
+.sidebar:hover {
+    width: 220px;
+}
+
+/* Logo */
+.sidebar img {
+    display: block;
+    margin: 0 auto 15px;
+    width: 40px; /* small logo collapsed */
+    transition: width 0.3s ease;
+}
+.sidebar:hover img {
+    width: 150px; /* big logo expanded */
+}
+
+/* Sidebar links */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.sidebar ul li {
+    margin: 5px 0;
+}
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    transition: background 0.3s;
+}
+.sidebar a:hover,
+.sidebar a.active {
+    background: #ff5c33;
+}
+
+/* Text visibility */
+.link-text {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.sidebar:hover .link-text {
+    opacity: 1;
+}
+
+/* === Main Content Alignment === */
+.main {
+    margin-left: 60px; /* collapsed */
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+.sidebar:hover ~ .main {
+    margin-left: 220px; /* expanded */
+}
