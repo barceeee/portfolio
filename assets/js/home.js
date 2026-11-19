@@ -314,6 +314,13 @@ function cardArt(item) {
   return h("span", { class: "card__monogram" }, (item.monogram || initials(item.shortTitle || item.title)));
 }
 
+/* Netflix-style tags in the hover panel: the first few tech-stack entries, dot-separated. */
+function cardTags(item) {
+  const tags = (Array.isArray(item.techStack) ? item.techStack : []).filter(has).slice(0, 3);
+  if (!tags.length) return null;
+  return h("span", { class: "card__tags" }, tags.map((t) => h("span", {}, t)));
+}
+
 function renderCard(item) {
   const meta = cardMeta(item);
   const art = h("div", { class: `card__art${item.icon && !item.image ? " card__art--icon" : ""}`, "aria-hidden": "true" }, cardArt(item));
@@ -325,6 +332,7 @@ function renderCard(item) {
       meta ? h("span", { class: "card__meta" }, meta) : null,
       h("span", { class: "card__preview" }, h("div", {},
         has(item.description) ? h("span", { class: "card__desc" }, item.description) : null,
+        cardTags(item),
         h("span", { class: "card__hint" }, caseStudyUrl(item) ? "Details · case study →" : "Details →")))));
 }
 

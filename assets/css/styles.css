@@ -556,3 +556,38 @@ main { padding-bottom: 48px; }
 .cases .case { flex: 1; height: 100%; }
 .case__desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .study-hero .hero__eyebrow { display: block; line-height: 1.7; }
+
+/* ==========================================================
+   Netflix-style tile hover (rows of .card tiles)
+   - waits a beat before growing, so tiles don't pop while the mouse just passes over
+   - grows a little bigger, nudges its neighbours aside and dims them
+   - shows the first few tech-stack tags in the hover panel
+   Leaving is instant; Top 10 posters and the skills grid keep their own hover.
+   ========================================================== */
+.card__tags { display: flex; flex-wrap: wrap; gap: 2px 0; margin: 6px 0 0; font-size: 11px; font-weight: 600; color: var(--text); }
+.card__tags span:not(:last-child)::after { content: "•"; margin: 0 6px; color: var(--accent); }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card {
+    --hover-delay: 200ms;
+    transition: transform var(--t-med) var(--ease), translate var(--t-med) var(--ease), opacity var(--t-med) var(--ease);
+  }
+  .card:hover, .card:focus-visible { transform: scale(1.12); transition-delay: var(--hover-delay); }
+  .card:hover .card__preview, .card:focus-visible .card__preview,
+  .card:hover .card__preview > div, .card:focus-visible .card__preview > div { transition-delay: var(--hover-delay); }
+
+  /* neighbours slide out of the way and fade back (not inside the wrapped skills grid) */
+  .row:not(.row--sub) .row__track > li:is(:hover, :focus-within) ~ li > .card { translate: 6% 0; }
+  .row:not(.row--sub) .row__track > li:has(~ li:is(:hover, :focus-within)) > .card { translate: -6% 0; }
+  .row:not(.row--sub) .row__track:has(> li:is(:hover, :focus-within)) > li:not(:hover, :focus-within) > .card { opacity: .55; }
+  .row:not(.row--sub) .row__track:has(> li:is(:hover, :focus-within)) > li > .card { transition-delay: var(--hover-delay); }
+}
+
+/* keep the hover panel clear of the corner badge: with tags shown, the description drops to one line */
+@media (hover: hover) {
+  .card:has(.card__tags):is(:hover, :focus-visible) .card__desc { -webkit-line-clamp: 1; }
+}
+@media (hover: hover) {
+  .card__badge { transition: opacity var(--t-fast) var(--ease); }
+  .card:has(.card__tags):is(:hover, :focus-visible) .card__badge { opacity: 0; transition-delay: 200ms; }
+}
