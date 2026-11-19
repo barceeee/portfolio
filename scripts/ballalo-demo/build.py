@@ -60,6 +60,19 @@ cd = OUT / "customer_pages" / "customer_dashboard.php"
 if cd.exists():
     cd.write_text(cd.read_text(encoding="utf-8").replace("fetch('/chatbot/chat.php", "fetch('../chatbot/chat.php"), encoding="utf-8")
 
+# The original login sends every non-admin (customers too) to the staff Orders page.
+# Customers go to their own page; config/db.php (overlay) keeps them off the staff pages.
+html = login.read_text(encoding="utf-8")
+old = """        if ($user['role'] === 'admin') {
+            $redirectUrl = "./pages/dashboard.php";
+        } else {"""
+assert old in html, "login redirect not found"
+login.write_text(html.replace(old, """        if ($user['role'] === 'admin') {
+            $redirectUrl = "./pages/dashboard.php";
+        } elseif (strtolower($user['role']) === 'customer') {
+            $redirectUrl = "./customer_pages/customer_dashboard.php";
+        } else {""", 1), encoding="utf-8")
+
 # ---------- 2. seed database ----------
 dump = (src / "sql" / "restaurant_db.sql").read_text(encoding="utf-8", errors="replace")
 

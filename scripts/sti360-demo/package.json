@@ -1,0 +1,13 @@
+{
+  "name": "sti360-demo-build",
+  "private": true,
+  "type": "module",
+  "description": "Builds the offline STI-360 demo (PGlite database + Vite build) into /demos/sti-360.",
+  "scripts": {
+    "db": "node build-db.mjs",
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "0.5.12"
+  }
+}

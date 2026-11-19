@@ -1,6 +1,9 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/projects/:slug", "destination": "/project" }
+    { "source": "/projects/:slug", "destination": "/project" },
+    { "source": "/demos/sti-360/app/admin", "destination": "/demos/sti-360/app/index.html" },
+    { "source": "/demos/sti-360/app/student", "destination": "/demos/sti-360/app/index.html" },
+    { "source": "/demos/sti-360/app/login", "destination": "/demos/sti-360/app/index.html" }
   ]
 }

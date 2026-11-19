@@ -1,0 +1,1 @@
+import{j as t}from"./index-D3Nqo7Vt.js";function o({icon:i,size:n=14,style:r,...e}){return i?t.jsx(i,{size:n,strokeWidth:2,"aria-hidden":"true",style:{display:"inline-block",verticalAlign:"-0.15em",marginRight:6,flexShrink:0,...r},...e}):null}export{o as I};

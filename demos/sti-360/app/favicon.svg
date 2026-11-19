@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="32" fill="#1e40af"/>
+  <!-- Outer ring arc (360 concept) -->
+  <circle cx="32" cy="32" r="26" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="130 20" stroke-linecap="round" transform="rotate(-100 32 32)"/>
+  <!-- STI text -->
+  <text x="32" y="36" font-family="Arial, sans-serif" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">STI</text>
+  <!-- Small 360 label -->
+  <text x="32" y="47" font-family="Arial, sans-serif" font-size="7" font-weight="700" fill="#93c5fd" text-anchor="middle" letter-spacing="2">360</text>
+</svg>

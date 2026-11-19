@@ -31,6 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($user['role'] === 'admin') {
             $redirectUrl = "./pages/dashboard.php";
+        } elseif (strtolower($user['role']) === 'customer') {
+            $redirectUrl = "./customer_pages/customer_dashboard.php";
         } else {
             $redirectUrl = "./pages/orders.php";
         }

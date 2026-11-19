@@ -21,7 +21,7 @@
     ],
     "link": {
       "label": "Play the demo",
-      "url": "/demos/ball-lalo?autostart=1"
+      "url": "/demos/ball-lalo"
     },
     "caseStudy": {
       "problem": "The restaurant ran its inventory, orders and reservations on paper. It needed one system for its menu, inventory, point of sale (POS) and table reservations that automates stock tracking, product records and stock-level reports.",
@@ -67,8 +67,8 @@
       "liveUrl": "",
       "repoUrl": "",
       "images": [],
-      "demoUrl": "/demos/ball-lalo?autostart=1",
-      "demoNote": "Opens full screen and starts by itself, running the real PHP app with sample data. Works best on a computer."
+      "demoUrl": "/demos/ball-lalo",
+      "demoNote": "Opens the demo full screen. Press Launch when you are ready; it runs the real PHP app with sample data. Works best on a computer."
     },
     "image": "/assets/img/cover-ball-lalo.png",
     "imagePosition": "left top"

@@ -16,6 +16,11 @@
     .bar { width: min(320px, 70vw); height: 6px; border-radius: 999px; background: #222; overflow: hidden; }
     .bar span { display: block; height: 100%; width: 0; background: #f43f5e; transition: width .2s ease; }
     #error { display: none; max-width: 40ch; text-align: center; font-size: 14px; color: #fca5a5; }
+    #intro { margin: 0; max-width: 40ch; text-align: center; color: #a1a1ab; font-size: 14px; text-transform: none; letter-spacing: 0; }
+    #launch { min-height: 46px; padding: 0 26px; border: 0; border-radius: 8px; background: #f43f5e; color: #fff; font: 700 16px/1 inherit; cursor: pointer; }
+    #launch:hover { filter: brightness(1.1); }
+    #launch:focus-visible { outline: 3px solid #fbbf24; outline-offset: 3px; }
+    [hidden] { display: none !important; }
     #fs { position: fixed; right: 12px; bottom: 12px; z-index: 2; border: 0; border-radius: 6px; padding: 8px 12px; background: rgba(0,0,0,.6); color: #fff; font: 600 12px/1 inherit; cursor: pointer; }
     #fs:hover { background: #f43f5e; }
     #fs:focus-visible { outline: 3px solid #fbbf24; outline-offset: 2px; }
@@ -25,8 +30,10 @@
   <canvas id="unity-canvas" tabindex="-1"></canvas>
   <div id="loading" role="status" aria-live="polite">
     <h1>Pagpag: The Hunger Games</h1>
-    <div class="bar" aria-hidden="true"><span id="bar"></span></div>
-    <p id="label">Loading game… 0%</p>
+    <p id="intro">A 2D survival game built in Unity. About 17&nbsp;MB downloads when you launch.</p>
+    <button id="launch" type="button">▶ Launch game</button>
+    <div class="bar" aria-hidden="true" hidden><span id="bar"></span></div>
+    <p id="label" hidden>Loading game… 0%</p>
     <p id="error"></p>
   </div>
   <button id="fs" type="button" hidden>⛶ Full screen</button>
@@ -48,6 +55,15 @@
       e.textContent = "The demo couldn't start: " + msg + " Try a desktop browser such as Chrome, Edge or Firefox.";
       e.style.display = "block"; label.style.display = "none";
     }
+    // Nothing downloads until the visitor presses Launch.
+    document.getElementById("launch").addEventListener("click", function () {
+      this.hidden = true;
+      document.getElementById("intro").hidden = true;
+      document.querySelector(".bar").hidden = false;
+      label.hidden = false;
+      start();
+    });
+    function start() {
     var s = document.createElement("script");
     s.src = "/demos/pagpag/Build/WebGL.loader.js";
     s.onload = function () {
@@ -64,6 +80,7 @@
     };
     s.onerror = function () { showError("the game files could not be downloaded."); };
     document.body.appendChild(s);
+    }
   </script>
 </body>
 </html>

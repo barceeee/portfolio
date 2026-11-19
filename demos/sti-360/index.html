@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STI-360 — Live Demo</title>
+  <meta name="description" content="Try STI-360, a campus-management portal, as the Academic Head or as a student. Runs offline in your browser with sample data.">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <style>
+    :root { color-scheme: dark; --bg:#09090b; --card:#141418; --line:#2a2a32; --text:#f4f4f6; --muted:#a1a1ab; --accent:#2563eb; --accent2:#fbbf24; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: radial-gradient(circle at 50% 0%, #0b1a3a, var(--bg) 70%); color: var(--text);
+      font: 15px/1.55 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+    main { min-height: 100vh; display: grid; place-items: center; padding: 20px 16px; }
+    .card { width: min(580px, 100%); background: rgba(20,20,24,.92); border: 1px solid var(--line); border-radius: 16px; padding: 24px; text-align: center; }
+    .logo { width: 96px; height: 96px; object-fit: contain; }
+    h1 { margin: 8px 0 4px; font: 400 32px/1.05 "Bebas Neue", "Arial Narrow", sans-serif; letter-spacing: .03em; }
+    .lead { margin: 0 0 18px; color: var(--muted); font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; margin: 0 0 18px; font-size: 14px; text-align: left; }
+    th, td { padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 22px; border: 0; border-radius: 8px;
+      background: var(--accent); color: #fff; font: 700 16px/1 inherit; cursor: pointer; text-decoration: none; }
+    .btn.alt { background: #334155; }
+    .btn:hover { filter: brightness(1.12); }
+    .btn:disabled { opacity: .6; cursor: wait; }
+    .btn:focus-visible, a:focus-visible, button:focus-visible { outline: 3px solid var(--accent2); outline-offset: 3px; }
+    #status { min-height: 1.5em; margin: 12px 0 0; color: var(--muted); font-size: 13px; }
+    .small { margin: 14px 0 0; font-size: 12.5px; color: var(--muted); }
+    .small a, .linkbtn { color: var(--text); }
+    .linkbtn { background: none; border: 0; padding: 0; font: inherit; text-decoration: underline; cursor: pointer; }
+    @media (max-width: 480px) { .btn { width: 100%; justify-content: center; } }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card" aria-labelledby="title">
+      <img class="logo" src="/demos/sti-360/app/favicon.svg" alt="" aria-hidden="true">
+      <h1 id="title">STI-360: live demo</h1>
+      <p class="lead">The real campus-management portal (React + Postgres), running entirely in your browser with made-up sample students. No real school data, nothing is sent anywhere.</p>
+      <table>
+        <thead><tr><th>Launch as</th><th>What you can try</th></tr></thead>
+        <tbody>
+          <tr><td>Academic Head (Admin)</td><td>Overview, curriculum, semester, scholarships, student records, academic standing, entrance exam and AI analysis, archive, reports inbox</td></tr>
+          <tr><td>Student</td><td>Enrollment checklist, grades, personal information</td></tr>
+        </tbody>
+      </table>
+      <div class="actions">
+        <button class="btn" type="button" data-role="admin">▶ Launch as Admin</button>
+        <button class="btn alt" type="button" data-role="student">▶ Launch as Student</button>
+      </div>
+      <p id="status" role="status" aria-live="polite"></p>
+      <p class="small">First launch downloads about 25&nbsp;MB (Postgres in WebAssembly + sample data), then it opens from this browser.
+        Changes are kept only in this browser · <button class="linkbtn" type="button" id="reset">Reset sample data</button></p>
+    </section>
+  </main>
+  <script>
+    const status = document.getElementById('status');
+    document.querySelectorAll('[data-role]').forEach((btn) => btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-role]').forEach((b) => { b.disabled = true; });
+      status.textContent = 'Opening the app… (the first start takes a few seconds)';
+      location.href = '/demos/sti-360/app/' + btn.dataset.role;
+    }));
+    document.getElementById('reset').addEventListener('click', () => {
+      try { localStorage.removeItem('sti360-demo-v1:ready'); localStorage.removeItem('sti-session-demo'); } catch (e) { /* storage blocked */ }
+      const done = () => { status.textContent = 'Sample data reset. The next launch starts fresh.'; };
+      try {
+        const req = indexedDB.deleteDatabase('/pglite/sti360-demo-v1');
+        req.onsuccess = req.onerror = req.onblocked = done;
+      } catch (e) { done(); }
+    });
+  </script>
+</body>
+</html>

@@ -92,8 +92,6 @@
     }
 
     btn.addEventListener('click', () => launch());
-    // Opened from the portfolio's "Play the demo": start straight away.
-    if (new URLSearchParams(location.search).has('autostart')) launch();
     document.getElementById('reset').addEventListener('click', (e) => { e.preventDefault(); launch(BASE + 'app/demo/reset.php'); });
   </script>
 </body>

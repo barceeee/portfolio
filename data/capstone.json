@@ -25,8 +25,8 @@
       "PDF.js"
     ],
     "link": {
-      "label": "Visit live site",
-      "url": "https://sti-360.vercel.app"
+      "label": "Play the demo",
+      "url": "/demos/sti-360"
     },
     "caseStudy": {
       "problem": "Campus departments each handled their part of the student lifecycle separately. STI-360 brings admissions, guidance, front desk, marketing and student services into one portal.",
@@ -57,6 +57,8 @@
         "Brought 4 departments into one portal with 7 role-based dashboards: Superuser, Admin, Front Desk, Guidance, Marketing, Student and Exam Taker."
       ],
       "liveUrl": "https://sti-360.vercel.app",
+      "demoUrl": "/demos/sti-360",
+      "demoNote": "Opens the demo in a new tab. Pick Admin or Student and press Launch; it runs the real app offline with sample data. Works best on a computer.",
       "repoUrl": "",
       "images": []
     },
